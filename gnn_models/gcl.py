@@ -5,6 +5,7 @@ from torch.nn import Sequential, Linear, ReLU
 from gnn_models.gin import GIN
 import numpy as np
 import pickle
+import copy
 
 
 class GCL_model(nn.Module):
@@ -19,25 +20,58 @@ class GCL_model(nn.Module):
         self.encoder = GIN(num_layers, num_mlp_layers, input_dim, hidden_dim,
                            output_dim, final_dropout, learn_eps, graph_pooling_type,
                            neighbor_pooling_type)
-        self.vice_encoder = self.encoder
+        self.vice_encoder = copy.deepcopy(self.encoder)
+
+        self.vice_encoder.to(self.device)
+        self.encoder.to(self.device)
+
         self.proj_head = nn.Sequential(nn.Linear(self.config.dim_word, self.config.dim_word),
                                        nn.ReLU(inplace=True),
                                        nn.Linear(self.config.dim_word, self.config.dim_word))
 
 
 
+    # def perturb_encoder(self, model, vice_model, config):
+    #     for (adv_name, adv_param), (name, param) in zip(vice_model.named_parameters(), model.named_parameters()):
+    #         std = torch.max(param.data.std(), torch.tensor(0.0))  # Ensure std >= 0.0
+    #         # try:
+    #         #     noise = torch.normal(0, torch.ones_like(param.data) * std).to(self.device)
+    #         # except:
+    #         #     noise = torch.normal(0, torch.ones_like(param.data) * torch.tensor(0.01)).to(self.device)
+    #         noise = torch.normal(0, torch.ones_like(param.data) * std).to(self.device)
+    #         adv_param.data = param.data + config.gcl_eta * noise
+    #         # print(adv_param.data)
+
+    #     return vice_model
+    
     def perturb_encoder(self, model, vice_model, config):
-        for (adv_name, adv_param), (name, param) in zip(vice_model.named_parameters(), model.named_parameters()):
-            std = torch.max(param.data.std(), torch.tensor(0.0))  # Ensure std >= 0.0
-            # try:
-            #     noise = torch.normal(0, torch.ones_like(param.data) * std).to(self.device)
-            # except:
-            #     noise = torch.normal(0, torch.ones_like(param.data) * torch.tensor(0.01)).to(self.device)
-            noise = torch.normal(0, torch.ones_like(param.data) * std).to(self.device)
+        eps = 1e-6
+
+        for (adv_name, adv_param), (name, param) in zip(
+            vice_model.named_parameters(), model.named_parameters()
+        ):
+            # 1) если в параметрах уже есть NaN/Inf — не шумим, просто копируем
+            if torch.isnan(param.data).any() or torch.isinf(param.data).any():
+                adv_param.data.copy_(torch.nan_to_num(param.data, nan=0.0, posinf=0.0, neginf=0.0))
+                continue
+
+            # 2) считаем std, но защищаемся от NaN
+            std = param.data.std()
+            if torch.isnan(std) or torch.isinf(std):
+                std = torch.tensor(eps, device=param.data.device)
+
+            # 3) гарантируем std >= eps
+            std = torch.clamp(std, min=eps)
+
+            noise = torch.normal(
+                mean=0.0,
+                std=torch.ones_like(param.data) * std
+            ).to(self.device)
+
             adv_param.data = param.data + config.gcl_eta * noise
-            # print(adv_param.data)
 
         return vice_model
+
 
     def tensor_reshape(self, tensor_list: list, sen_num):
         _, dim = tensor_list[0].size()
@@ -90,9 +124,14 @@ class GCL_model(nn.Module):
     def compute_gcl_loss(self, x, x_aug):
         T = 0.2
         batch_size, _ = x.size()
-        x_abs = x.norm(dim=1)
-        x_aug_abs = x_aug.norm(dim=1)
-        sim_matrix = torch.einsum('ik,jk->ij', x, x_aug) / torch.einsum('i,j->ij', x_abs, x_aug_abs)
+        
+        x_abs = torch.clamp(x.norm(dim=1), min=1e-8)
+        x_aug_abs = torch.clamp(x_aug.norm(dim=1), min=1e-8)
+
+        den = torch.einsum('i,j->ij', x_abs, x_aug_abs)
+        den = torch.clamp(den, min=1e-8)
+        sim_matrix = torch.einsum('ik,jk->ij', x, x_aug) / den
+
         sim_matrix = torch.exp(sim_matrix / T)
         pos_sim = sim_matrix[range(batch_size), range(batch_size)]
         loss = pos_sim / (sim_matrix.sum(dim=1) - pos_sim)

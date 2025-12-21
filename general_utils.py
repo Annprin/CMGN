@@ -2,7 +2,11 @@ import time
 import sys
 import logging
 import numpy as np
+# import rouge
+
 import rouge
+print("ROUGE MODULE FILE:", rouge.__file__)
+print("ROUGE CLASS:", rouge.Rouge)
 
 def get_logger(filename):
     """Return a logger instance that writes in filename
@@ -139,21 +143,19 @@ class Progbar(object):
 
 
 def rouge_sim2(summary, hypothesis):
-    # print(summary)
-    # print(hypothesis)
     if summary == []:
         summary = ""
     if hypothesis == []:
         hypothesis = ""
-    evaluator = rouge.Rouge(metrics = ['rouge-n', 'rouge-l'],
-                            max_n = 2
-                            )
-    r_1 = evaluator.get_scores(hypothesis, summary)['rouge-1']['f']
-    r_2 = evaluator.get_scores(hypothesis, summary)['rouge-2']['f']
-    r_l = evaluator.get_scores(hypothesis, summary)['rouge-l']['f']
-    # print(evaluator.get_scores(hypothesis, summary))
-    # r_1 = evaluator.get_scores(hypothesis, summary)[0]['rouge-1']['f']
-    # r_2 = evaluator.get_scores(hypothesis, summary)[0]['rouge-2']['f']
-    # r_l = evaluator.get_scores(hypothesis, summary)[0]['rouge-l']['f']
-    score = r_1 / 3 + r_2 / 3 + r_l / 3
+
+    evaluator = rouge.Rouge(metrics=['rouge-1', 'rouge-2', 'rouge-l'])
+
+    scores = evaluator.get_scores(hypothesis, summary)[0] 
+
+    r_1 = scores['rouge-1']['f']
+    r_2 = scores['rouge-2']['f']
+    r_l = scores['rouge-l']['f']
+
+    score = (r_1 + r_2 + r_l) / 3
     return score
+

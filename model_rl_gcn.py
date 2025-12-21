@@ -8,6 +8,7 @@ import pickle
 import time
 from sklearn.cluster import KMeans
 from collections import defaultdict
+import random
 
 from general_utils import rouge_sim2
 from gnn_models.gcn import GCNNet
@@ -154,9 +155,18 @@ class Seq2Graph_rl_gcn(nn.Module):
 
         feature_matrix = slice_adj.transpose(0,1)[np.ix_(index_of_sents)]
 
+        if torch.isnan(slice_adj).any() or feature_matrix.size(0) < 2:
+            return original_sentences[0]
+
         kmeans = KMeans(n_clusters=2)
         if feature_matrix.size()[0] >= 2:
-            kmeans.fit(feature_matrix.cpu().detach().numpy())
+
+            X = feature_matrix.cpu().detach().numpy()
+            if np.isnan(X).any() or X.shape[0] < 2:
+                return original_sentences[:1]
+            X = np.nan_to_num(X)
+            kmeans.fit(X)
+
             label = kmeans.labels_
 
             sub_index_of_sents = defaultdict(list)
@@ -204,6 +214,9 @@ class Seq2Graph_rl_gcn(nn.Module):
         return " ".join(selected_sents), prob_list
 
     def compute_rl_loss(self, slice_adj, original_sentences, original_abstracts):
+        if torch.isnan(slice_adj).any() or torch.isinf(slice_adj).any():
+            return torch.tensor(0.0, device=slice_adj.device)
+        
         abstract = " ".join(original_abstracts)
 
         dim = slice_adj.size()[0]
@@ -283,13 +296,18 @@ class Seq2Graph_rl_gcn(nn.Module):
             cur_adj = torch.squeeze(adj_list[i], 0)
             cur_node_num = content_length[i]
             slice_adj = cur_adj[0:cur_node_num, 0:cur_node_num]
+
+            slice_adj = torch.clamp(slice_adj, min=-10, max=10)
             slice_adj = torch.sigmoid(slice_adj)
+            
             cur_label = torch.tensor(labels[i]).float().to(self.device)
 
             # cur_label = torch.ge(cur_label, self.config.label_threshold).float()
 
             # ignore diagonal elements
-            slice_adj[torch.eye(cur_node_num).byte()].detach()
+            diag_mask = torch.eye(cur_node_num, device=slice_adj.device).bool()
+            slice_adj = slice_adj.masked_fill(diag_mask, 1.0)
+
             cur_label[torch.eye(cur_node_num).byte()].detach()
 
             if self.config.rl == 1:

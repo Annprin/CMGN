@@ -1,5 +1,6 @@
 import time
-
+import os
+os.environ["DGL_DISABLE_GRAPHBOLT"] = "1"
 import torch
 import torch.nn as nn
 from torch import optim
@@ -9,7 +10,7 @@ import numpy as np
 import random
 from torch.backends import cudnn
 from model_rl_gcn import Seq2Graph_rl_gcn
-import os
+
 # os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 # torch.autograd.set_detect_anomaly(True)
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
@@ -21,6 +22,8 @@ import math
 from api import evaluation_sim
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
+
+
 
 parser = argparse.ArgumentParser(description="Process some hyper parameters")
 
@@ -226,6 +229,7 @@ def train_epoch(seq2graph_model, data_loader, length, crit, optimizer, config):
 
         optimizer.zero_grad()
         loss.backward()
+        torch.nn.utils.clip_grad_norm_(seq2graph_model.parameters(), max_norm=5.0)
         optimizer.step()
         total_loss += loss.item()
 
