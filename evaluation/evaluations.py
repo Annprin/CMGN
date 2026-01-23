@@ -28,27 +28,29 @@ def process_wordPairs(data):
         new_data.append(new_each)
     return new_data
 
-
 def compare_method(pairs, pairs2):
-    sim = [0, 0, 0, 0]
+    sim = 0.0
     for i in range(len(pairs2)):
-        msp = ['', '']
+        # msp = ['', '']
+        # old code
+        msp = pairs[1]
+        if i == 0:
+            continue
         found = False
         for j in range(len(pairs)):
-            first = rouge_sim2(pairs2[i][0], msp[0])[0] + rouge_sim2(pairs2[i][1], msp[1])[0]
-            second = rouge_sim2(pairs2[i][0], pairs[j][0])[0] + rouge_sim2(pairs2[i][1], pairs[j][1])[0]
+            # modified
+            if j == 0:
+                continue
+            first = rouge_sim2(pairs2[i][0], msp[0]) + rouge_sim2(pairs2[i][1], msp[1])
+            second = rouge_sim2(pairs2[i][0], pairs[j][0]) + rouge_sim2(pairs2[i][1], pairs[j][1])
             if first < second:
                 msp = pairs[j]
                 max_index = j
                 found = True
-        # cur_sim = rouge_sim2(pairs2[i][0], msp[0])
-        # cur_sim += rouge_sim2(pairs2[i][1], msp[1])
-        # sim += cur_sim / 2
-        cur_sim_0 = rouge_sim2(pairs2[i][0], msp[0])
-        cur_sim_1 = rouge_sim2(pairs2[i][1], msp[1])
-        temp_sim = [(x + y) / 2 for x, y in zip(cur_sim_0, cur_sim_1)]
-        for index, score in enumerate(sim):
-            sim[index] += temp_sim[index]
+        cur_sim = rouge_sim2(pairs2[i][0], msp[0])
+        cur_sim += rouge_sim2(pairs2[i][1], msp[1])
+
+        sim += cur_sim / 2
 
         if found:
             del pairs[max_index]
@@ -56,8 +58,8 @@ def compare_method(pairs, pairs2):
 
 def main(benchmarks, my_results, sim_threshold):
     cc = listdir(benchmarks)
-    totalSim = [0, 0, 0, 0]
-    totalSim_word = [0, 0, 0, 0]
+    totalSim = 0
+    totalSim_word = 0
     evaluator_number = 0
     cc.sort()
     total_second_phase_time = 0
@@ -87,13 +89,10 @@ def main(benchmarks, my_results, sim_threshold):
             sim_word = compare_method(wordPairs, wordPairs2)
 
             # print(sim/len(pairs2), sim_word/len(wordPairs2))
-            print(sim[0] / len(pairs2), sim_word[0] / len(wordPairs2))
+            print(sim / len(pairs2), sim_word / len(wordPairs2))
 
-            # totalSim += sim / len(pairs2)
-            # totalSim_word += sim_word / len(wordPairs2)
-            for index, score in enumerate(sim):
-                totalSim[index] += sim[index] / len(pairs2)
-                totalSim_word[index] += sim_word[index] / len(wordPairs2)
+            totalSim += sim / len(pairs2)
+            totalSim_word += sim_word / len(wordPairs2)
             evaluator_number += 1
 
     print("total second phase time ", total_second_phase_time)
@@ -114,32 +113,20 @@ def main(benchmarks, my_results, sim_threshold):
     print("final reulst for", evaluator_number, " files")
     print('sentence:')
     # print(str(totalSim / evaluator_number))
-    print('average: ' + str(totalSim[0] / evaluator_number))
-    print('r_1: ' + str(totalSim[1] / evaluator_number))
-    print('r_2: ' + str(totalSim[2] / evaluator_number))
-    print('r_l: ' + str(totalSim[3] / evaluator_number))
+    print('average: ' + str(totalSim / evaluator_number))
 
     # print("key word: ", str(totalSim_word / evaluator_number))
     print('key word: ')
     # print(str(totalSim / evaluator_number))
-    print('average: ' + str(totalSim_word[0] / evaluator_number))
-    print('r_1: ' + str(totalSim_word[1] / evaluator_number))
-    print('r_2: ' + str(totalSim_word[2] / evaluator_number))
-    print('r_l: ' + str(totalSim_word[3] / evaluator_number))
+    print('average: ' + str(totalSim_word / evaluator_number))
 
     with open('log.txt', 'a+', encoding='utf-8') as f:
         f.write('\n')
         f.write(datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S'))
         # f.write(f"\nsen: {totalSim / evaluator_number}\n")
         f.write("\nsentence:")
-        f.write('\naverage: ' + str(totalSim[0] / evaluator_number))
-        f.write('\nr_1: ' + str(totalSim[1] / evaluator_number))
-        f.write('\nr_2: ' + str(totalSim[2] / evaluator_number))
-        f.write('\nr_l: ' + str(totalSim[3] / evaluator_number))
+        f.write('\naverage: ' + str(totalSim / evaluator_number))
         # f.write(f"key word: {totalSim_word / evaluator_number}")
         f.write("\nkey word:")
-        f.write('\naverage: ' + str(totalSim_word[0] / evaluator_number))
-        f.write('\nr_1: ' + str(totalSim_word[1] / evaluator_number))
-        f.write('\nr_2: ' + str(totalSim_word[2] / evaluator_number))
-        f.write('\nr_l: ' + str(totalSim_word[3] / evaluator_number))
+        f.write('\naverage: ' + str(totalSim_word / evaluator_number))
 

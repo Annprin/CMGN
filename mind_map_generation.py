@@ -752,7 +752,7 @@ def truncating_tree_through_local_keywords(father_to_child, child_to_father, ind
 
         if len(child_to_father[s]) > deepest:
             deepest =  len(child_to_father[s])
-    #print(content)
+    print(wordMap)
     return pairs, wordPairs
 
 

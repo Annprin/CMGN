@@ -1462,3 +1462,20 @@ average: 0.4081936274586461
 r_1: 0.41731139653980687
 r_2: 0.38995808929632453
 r_l: 0.41731139653980687
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+seed = 2, model_type = gcn
+2026-01-22  19:35:46
+sentence:
+average: 0.30790531728997955
+key word:
+average: 0.40052662121027754

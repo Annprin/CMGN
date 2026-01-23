@@ -125,3 +125,110 @@
 2025-12-21 17:39:53,746:INFO: 0.30612656367067376
 2025-12-21 17:39:53,760:INFO: new best score!!The checkpoint file has been updated.
 2025-12-21 17:39:53,761:INFO: ---------Epoch 8 out of 120---------
+2025-12-21 17:48:41,657:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=120, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='model', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_2/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=2, register=True, max_sentence_length=50, max_content_length=50)
+2025-12-21 17:48:42,006:INFO: ---------Epoch 1 out of 120---------
+2025-12-21 17:50:11,991:INFO: loss: 11.64919
+2025-12-21 17:50:15,265:INFO: dev loss: 1.581753
+2025-12-21 17:50:19,039:INFO: 0.17465915331878762
+2025-12-21 17:50:19,049:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 17:50:19,049:INFO: ---------Epoch 2 out of 120---------
+2025-12-21 17:51:56,898:INFO: loss: 6.81905
+2025-12-21 17:52:00,980:INFO: dev loss: 1.571896
+2025-12-21 17:52:06,934:INFO: 0.24159159097540855
+2025-12-21 17:52:06,950:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 17:52:06,950:INFO: ---------Epoch 3 out of 120---------
+2025-12-21 17:54:01,646:INFO: loss: 6.79665
+2025-12-21 17:54:05,576:INFO: dev loss: 1.571440
+2025-12-21 17:54:11,748:INFO: 0.28038116028938076
+2025-12-21 17:54:11,761:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 17:54:11,761:INFO: ---------Epoch 4 out of 120---------
+2025-12-21 17:56:06,562:INFO: loss: 6.74337
+2025-12-21 17:56:10,374:INFO: dev loss: 1.569987
+2025-12-21 17:56:16,795:INFO: 0.2946287037214871
+2025-12-21 17:56:16,809:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 17:56:16,809:INFO: ---------Epoch 5 out of 120---------
+2025-12-21 17:58:10,048:INFO: loss: 6.71432
+2025-12-21 17:58:13,741:INFO: dev loss: 1.565624
+2025-12-21 17:58:20,133:INFO: 0.2933567222184568
+2025-12-21 17:58:20,133:INFO: ---------Epoch 6 out of 120---------
+2025-12-21 18:00:12,883:INFO: loss: 6.56558
+2025-12-21 18:00:16,635:INFO: dev loss: 1.516752
+2025-12-21 18:00:23,096:INFO: 0.297965235761481
+2025-12-21 18:00:23,109:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 18:00:23,109:INFO: ---------Epoch 7 out of 120---------
+2025-12-21 18:02:17,364:INFO: loss: 6.03564
+2025-12-21 18:02:21,132:INFO: dev loss: 1.323568
+2025-12-21 18:02:27,661:INFO: 0.30311436200710407
+2025-12-21 18:02:27,674:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 18:02:27,674:INFO: ---------Epoch 8 out of 120---------
+2025-12-21 18:04:25,057:INFO: loss: 5.79837
+2025-12-21 18:04:28,811:INFO: dev loss: 1.318539
+2025-12-21 18:04:35,245:INFO: 0.2887896329406477
+2025-12-21 18:04:35,246:INFO: ---------Epoch 9 out of 120---------
+2025-12-21 18:06:31,359:INFO: loss: 5.76758
+2025-12-21 18:06:35,107:INFO: dev loss: 1.315791
+2025-12-21 18:06:41,602:INFO: 0.2997475783567705
+2025-12-21 18:06:41,602:INFO: ---------Epoch 10 out of 120---------
+2025-12-21 18:08:38,641:INFO: loss: 5.74647
+2025-12-21 18:08:42,393:INFO: dev loss: 1.314113
+2025-12-21 18:08:48,837:INFO: 0.3054169053746935
+2025-12-21 18:08:48,850:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 18:08:48,850:INFO: ---------Epoch 11 out of 120---------
+2025-12-21 18:10:45,928:INFO: loss: 5.73286
+2025-12-21 18:10:49,670:INFO: dev loss: 1.313255
+2025-12-21 18:10:56,110:INFO: 0.29966098831271026
+2025-12-21 18:10:56,110:INFO: ---------Epoch 12 out of 120---------
+2025-12-21 18:12:53,142:INFO: loss: 5.72223
+2025-12-21 18:12:56,890:INFO: dev loss: 1.311817
+2025-12-21 18:13:03,339:INFO: 0.302603055392122
+2025-12-21 18:13:03,340:INFO: ---------Epoch 13 out of 120---------
+2025-12-21 18:15:01,534:INFO: loss: 5.70873
+2025-12-21 18:15:05,310:INFO: dev loss: 1.310698
+2025-12-21 18:15:11,846:INFO: 0.3091172022227584
+2025-12-21 18:15:11,860:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 18:15:11,860:INFO: ---------Epoch 14 out of 120---------
+2025-12-21 18:17:09,951:INFO: loss: 5.70557
+2025-12-21 18:17:13,701:INFO: dev loss: 1.309687
+2025-12-21 18:17:20,278:INFO: 0.2930092189427548
+2025-12-21 18:17:20,279:INFO: ---------Epoch 15 out of 120---------
+2025-12-21 18:19:16,860:INFO: loss: 5.69267
+2025-12-21 18:19:20,562:INFO: dev loss: 1.308187
+2025-12-21 18:19:27,039:INFO: 0.30990761377090775
+2025-12-21 18:19:27,053:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 18:19:27,053:INFO: ---------Epoch 16 out of 120---------
+2025-12-21 18:21:27,965:INFO: loss: 5.68299
+2025-12-21 18:21:32,160:INFO: dev loss: 1.306611
+2025-12-21 18:21:39,477:INFO: 0.2991112250747966
+2025-12-21 18:21:39,478:INFO: ---------Epoch 17 out of 120---------
+2025-12-21 18:23:35,748:INFO: loss: 5.66830
+2025-12-21 18:23:39,249:INFO: dev loss: 1.304883
+2025-12-21 18:23:45,453:INFO: 0.31044848027508815
+2025-12-21 18:23:45,467:INFO: new best score!!The checkpoint file has been updated.
+2025-12-21 18:23:45,467:INFO: ---------Epoch 18 out of 120---------
+2025-12-21 18:25:38,952:INFO: loss: 5.65488
+2025-12-21 18:25:42,477:INFO: dev loss: 1.302202
+2025-12-21 18:25:48,801:INFO: 0.3019096750026261
+2025-12-21 18:25:48,801:INFO: ---------Epoch 19 out of 120---------
+2026-01-13 23:11:07,971:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs='2', data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='model1', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_2/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=2, register=True, max_sentence_length=50, max_content_length=50)
+2026-01-13 23:11:55,985:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=2, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='model1', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_2/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=2, register=True, max_sentence_length=50, max_content_length=50)
+2026-01-13 23:11:56,311:INFO: ---------Epoch 1 out of 2---------
+2026-01-13 23:13:27,172:INFO: loss: 11.64919
+2026-01-13 23:13:30,525:INFO: dev loss: 1.581753
+2026-01-13 23:13:34,382:INFO: 0.17465915331878762
+2026-01-13 23:13:34,395:INFO: new best score!!The checkpoint file has been updated.
+2026-01-13 23:13:34,395:INFO: ---------Epoch 2 out of 2---------
+2026-01-13 23:15:05,513:INFO: loss: 6.81905
+2026-01-13 23:15:08,840:INFO: dev loss: 1.571896
+2026-01-13 23:15:13,329:INFO: 0.24159159097540855
+2026-01-13 23:15:13,340:INFO: new best score!!The checkpoint file has been updated.
+2026-01-13 23:18:47,783:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=2, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='model1', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_2/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=2, register=True, max_sentence_length=50, max_content_length=50)
+2026-01-13 23:18:48,102:INFO: ---------Epoch 1 out of 2---------
+2026-01-13 23:20:19,420:INFO: loss: 11.64919
+2026-01-13 23:20:22,780:INFO: dev loss: 1.581753
+2026-01-13 23:20:26,535:INFO: 0.17465915331878762
+2026-01-13 23:20:26,545:INFO: new best score!!The checkpoint file has been updated.
+2026-01-13 23:20:26,545:INFO: ---------Epoch 2 out of 2---------
+2026-01-13 23:21:57,967:INFO: loss: 6.81905
+2026-01-13 23:22:01,480:INFO: dev loss: 1.571896
+2026-01-13 23:22:05,958:INFO: 0.24159159097540855
+2026-01-13 23:22:05,968:INFO: new best score!!The checkpoint file has been updated.

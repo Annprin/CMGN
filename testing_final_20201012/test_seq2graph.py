@@ -167,6 +167,8 @@ def train(seq2graph_model, crit, test_data, full_test_data, config):
     total_ = eval_epoch(seq2graph_model, full_test_data, test_data_loader, length, crit, config)
     end = time.time()
     print("time ", end-start)
+
+    os.makedirs("to_test", exist_ok=True)
     pickle.dump([total_], open("to_test/" + str(config.seed) + "_test_" + config.model_type + f"_{config.model_name}.p", "wb"))
 
 def main():
