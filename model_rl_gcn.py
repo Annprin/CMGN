@@ -9,6 +9,7 @@ import time
 from sklearn.cluster import KMeans
 from collections import defaultdict
 import random
+import dgl
 
 from general_utils import rouge_sim2
 from gnn_models.gcn import GCNNet
@@ -254,14 +255,29 @@ class Seq2Graph_rl_gcn(nn.Module):
         text_tensors = torch.split(tensors, 1, dim=0)
         all_gcn_tensors = []
 
+# ------------------------ debug use -----------------------
         for index, tensor in enumerate(text_tensors):
             num_nodes = maps[index].number_of_nodes()
             sentence_tensors = tensor.squeeze(0)[0:num_nodes, 0:dim]
+            g = dgl.graph(
+                (torch.arange(num_nodes), torch.arange(num_nodes)),
+                num_nodes=num_nodes
+            ).to(sentence_tensors.device)
             if vice_model:
-                gcn_last_h = self.vice_gcn(maps[index], sentence_tensors)
+                gcn_last_h = self.vice_gcn(g, sentence_tensors)
             else:
-                gcn_last_h = self.gcn(maps[index], sentence_tensors)
+                gcn_last_h = self.gcn(g, sentence_tensors)
             all_gcn_tensors.append(gcn_last_h)
+# ---------------------------------------------------------
+
+        # for index, tensor in enumerate(text_tensors):
+        #     num_nodes = maps[index].number_of_nodes()
+        #     sentence_tensors = tensor.squeeze(0)[0:num_nodes, 0:dim]
+        #     if vice_model:
+        #         gcn_last_h = self.vice_gcn(maps[index], sentence_tensors)
+        #     else:
+        #         gcn_last_h = self.gcn(maps[index], sentence_tensors)
+        #     all_gcn_tensors.append(gcn_last_h)
 
         gcn_tensor = self.tensor_reshape(all_gcn_tensors, self.max_content_length).to(self.device)
 
