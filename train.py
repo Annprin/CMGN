@@ -312,9 +312,9 @@ def eval_score(seq2graph_model, crit, config):
     total_ = eval_test_epoch(seq2graph_model, full_dev_data, dev_data_loader, length, crit, config)
     # pickle.dump([total_], open("../testing_final_20200909/to_dev/dev_" + config.model_type + ".p", "wb"))
 
-    score, word_score = evaluation_sim(total_, "dev", config.model_type)
+    score, word_score, tted_score = evaluation_sim(total_, "dev", config.model_type, enable_tted=True, tted_model_name="sentence-transformers/paraphrase-distilroberta-base-v2")
 
-    return score
+    return score, word_score, tted_score
 
 def train(seq2graph_model, crit, optimizer, logger, train_data, valid_data, config):
     max_score = 0
@@ -344,8 +344,8 @@ def train(seq2graph_model, crit, optimizer, logger, train_data, valid_data, conf
         logger.info(dev_msg)
 
         print("deving 15 files .......")
-        dev_score = eval_score(seq2graph_model, crit, config)
-        logger.info(dev_score)
+        dev_score, word_score, tted_score = eval_score(seq2graph_model, crit, config)
+        logger.info("dev score: " + str(dev_score) + ", word score: " + str(word_score) + ", tted score: " + str(tted_score))
 
         seq2graph_model.max_sentence_length = config.max_sentence_length
         seq2graph_model.max_content_length = config.max_content_length

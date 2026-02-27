@@ -5,3 +5,5 @@ dgl
 pyyaml
 "pydantic<2"
 rouge==1.0.1
+edist
+sentence_transformers
