@@ -1,6 +1,6 @@
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
-from os import listdir
+from os import listdir, makedirs
 from os.path import isfile, join
 import re
 import rake
@@ -55,12 +55,21 @@ def compare_method(pairs, pairs2):
             del pairs[max_index]
     return sim
 
-def main(benchmarks, my_results, sim_threshold):
+def _default_output_dir(benchmarks):
+    bench = benchmarks.rstrip("/")
+    if "a_labeling_" in bench:
+        return bench.replace("a_labeling_", "a_generated_", 1)
+    return bench + "_generated"
+
+
+def main(benchmarks, my_results, sim_threshold, output_dir=None):
     cc = listdir(benchmarks)
     totalSim = 0
     totalSim_word = 00
     evaluator_number = 0
     cc.sort()
+    output_dir = output_dir or _default_output_dir(benchmarks)
+    makedirs(output_dir, exist_ok=True)
     for idx, target in enumerate(cc):
         if target.find('.story') >= 0:
             print(target)
@@ -73,7 +82,11 @@ def main(benchmarks, my_results, sim_threshold):
             target_id = target[0: target.find('.story')]
             sents, prob_matrix = my_results[target_id]
 
-            pairs, wordPairs = my_generate_mindmap(sents, prob_matrix, len(pairs2), sim_threshold, length_threshold)
+            pairs, wordPairs, story_content = my_generate_mindmap(
+                sents, prob_matrix, len(pairs2), sim_threshold, length_threshold, return_story=True
+            )
+            with open(join(output_dir, target), "w", encoding="utf-8") as f:
+                f.write(story_content)
             # print(f'pairs = {pairs}')
             tmp_pairs = pairs[:]
             # print(f'tmp_pairs = {tmp_pairs}')
@@ -97,6 +110,60 @@ def main(benchmarks, my_results, sim_threshold):
     return totalSim / evaluator_number, totalSim_word / evaluator_number
 
 
+def compare_generated_maps(benchmarks, generated_maps_dir):
+    """
+    Compare pre-generated .story maps with target .story maps using
+    the same metrics as the main evaluation pipeline.
+    """
+    targets = [f for f in sorted(listdir(benchmarks)) if f.endswith(".story")]
+
+    totalSim = 0.0
+    totalSim_word = 0.0
+    evaluator_number = 0
+    missing = []
+
+    for target in targets:
+        target_path = join(benchmarks, target)
+        generated_path = join(generated_maps_dir, target)
+
+        if not isfile(generated_path):
+            missing.append(target)
+            continue
+
+        target_pairs, target_word_pairs, _ = parse_docs(target_path)
+        generated_pairs, generated_word_pairs, _ = parse_docs(generated_path)
+
+        if len(target_pairs) <= 1 or len(generated_pairs) <= 1:
+            print(f"skip {target}: not enough nodes for sentence-level comparison")
+            continue
+
+        if len(target_word_pairs) <= 1 or len(generated_word_pairs) <= 1:
+            print(f"skip {target}: not enough nodes for keyword-level comparison")
+            continue
+
+        sim = compare_method(generated_pairs[:], target_pairs) / len(target_pairs)
+        sim_word = compare_method(
+            process_wordPairs(generated_word_pairs),
+            process_wordPairs(target_word_pairs),
+        ) / len(target_word_pairs)
+
+        print(target, sim, sim_word)
+        totalSim += sim
+        totalSim_word += sim_word
+        evaluator_number += 1
+
+    print("evaluated files:", evaluator_number)
+    if missing:
+        print("missing generated files:", len(missing))
+
+    if evaluator_number == 0:
+        raise ValueError("No files were evaluated. Check folder paths and file formats.")
+
+    sentence_avg = totalSim / evaluator_number
+    keyword_avg = totalSim_word / evaluator_number
+    print("sentence average:", sentence_avg)
+    print("key word average:", keyword_avg)
+    return sentence_avg, keyword_avg, missing
 
 
 

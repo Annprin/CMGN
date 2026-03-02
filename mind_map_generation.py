@@ -212,6 +212,29 @@ def maximum_ranking(prob_matrix):
     indexes = list(reversed(indexes))
     return indexes
 
+def build_story_from_tree(original_sentences, root_idx, edges):
+    """
+    Build output in the same structural format as target .story files.
+    """
+    children = defaultdict(list)
+    for father, child in edges:
+        children[father].append(child)
+
+    lines = ["<highlight>", ""]
+
+    def clean_text(text):
+        return str(text).replace("\n", " ").strip()
+
+    def dfs(node_idx, tag):
+        sent = clean_text(original_sentences[node_idx])
+        lines.append(f"<{tag}>{sent}</{tag}>")
+        for order, child_idx in enumerate(children.get(node_idx, []), start=1):
+            dfs(child_idx, f"{tag}.{order}")
+
+    dfs(root_idx, "T1")
+    lines.append("</highlight>")
+    return "\n".join(lines) + "\n"
+
 
 def generating_relation_tree_bottom_up(prob_matrix, generating_threshold):
     '''
@@ -642,6 +665,7 @@ def truncating_tree_through_local_keywords(father_to_child, child_to_father, ind
     pairs = []
     wordPairs = []
     wordDict = dict()
+    selected_edges = []
 
     pairs.append([[], parsed_sentences[root]])
 
@@ -713,6 +737,7 @@ def truncating_tree_through_local_keywords(father_to_child, child_to_father, ind
             pairs.append(pair)
             wordDict[i] = selectedChild
             wordPairs.append([fatherword, selectedChild])
+            selected_edges.append((father, i))
             childCounter[father].append(i)
             father = i
             counter += 1
@@ -747,17 +772,24 @@ def truncating_tree_through_local_keywords(father_to_child, child_to_father, ind
         content += "|-%s-->[%d] %d %s\n" % (indent, len(child_to_father[s]), s, original_sentences)
         wordMap += "|-%s-->[%d] %d %s\n" % (indent, len(child_to_father[s]), s, selectedChild)
         pairs.append(pair)
+        selected_edges.append((father, s))
 
         childCounter[father].append(s)
 
         if len(child_to_father[s]) > deepest:
             deepest =  len(child_to_father[s])
-    print(wordMap)
-    return pairs, wordPairs
+    # print(wordMap)
+    story_content = build_story_from_tree(original_sentences, root, selected_edges)
+    # print(content)
+    return pairs, wordPairs, story_content
 
 
-def my_generate_mindmap(o, prob_matrix, numPaires, sim_threshold, length_threshold):
+def my_generate_mindmap(o, prob_matrix, numPaires, sim_threshold, length_threshold, return_story=False):
     father_to_child, child_to_father, indexes = generating_relation_tree_through_clustering_hmt(prob_matrix)
-    pairs, wordPairs = truncating_tree_through_local_keywords(father_to_child, child_to_father, indexes, o, numPaires, sim_threshold, length_threshold)
-
+    pairs, wordPairs, story_content = truncating_tree_through_local_keywords(
+        father_to_child, child_to_father, indexes, o, numPaires, sim_threshold, length_threshold
+    )
+    print("pairs ", pairs)
+    if return_story:
+        return pairs, wordPairs, story_content
     return pairs, wordPairs

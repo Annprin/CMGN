@@ -1,0 +1,46 @@
+2026-02-27 14:38:06,861:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=120, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='test', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_16/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=16, register=True, max_sentence_length=50, max_content_length=50)
+2026-02-27 14:38:07,298:INFO: ---------Epoch 1 out of 120---------
+2026-02-27 14:38:30,759:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=2, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='test', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_16/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=16, register=True, max_sentence_length=50, max_content_length=50)
+2026-02-27 14:38:31,003:INFO: ---------Epoch 1 out of 2---------
+2026-02-27 14:40:05,580:INFO: loss: 11.41107
+2026-02-27 14:40:09,027:INFO: dev loss: 1.583847
+2026-02-27 14:40:13,411:INFO: 0.2367495045625679
+2026-02-27 14:40:13,425:INFO: new best score!!The checkpoint file has been updated.
+2026-02-27 14:40:13,425:INFO: ---------Epoch 2 out of 2---------
+2026-02-27 14:41:52,028:INFO: loss: 6.80357
+2026-02-27 14:41:55,701:INFO: dev loss: 1.572368
+2026-02-27 14:42:00,749:INFO: 0.27449266431711083
+2026-02-27 14:42:00,758:INFO: new best score!!The checkpoint file has been updated.
+2026-02-27 16:59:20,892:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=2, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='test', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_16/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=16, register=True, max_sentence_length=50, max_content_length=50)
+2026-02-27 16:59:21,206:INFO: ---------Epoch 1 out of 2---------
+2026-02-27 17:00:56,473:INFO: loss: 11.41107
+2026-02-27 17:00:59,972:INFO: dev loss: 1.583847
+2026-02-27 17:01:04,593:INFO: 0.2367495045625679
+2026-02-27 17:01:04,604:INFO: new best score!!The checkpoint file has been updated.
+2026-02-27 17:01:04,604:INFO: ---------Epoch 2 out of 2---------
+2026-02-27 17:02:41,625:INFO: loss: 6.80357
+2026-02-27 17:02:45,107:INFO: dev loss: 1.572368
+2026-02-27 17:02:50,138:INFO: 0.27449266431711083
+2026-02-27 17:02:50,147:INFO: new best score!!The checkpoint file has been updated.
+2026-02-27 17:27:01,878:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=2, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='test', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_16/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=16, register=True, max_sentence_length=50, max_content_length=50)
+2026-02-27 17:27:02,261:INFO: ---------Epoch 1 out of 2---------
+2026-02-27 17:28:38,647:INFO: loss: 11.41107
+2026-02-27 17:28:42,068:INFO: dev loss: 1.583847
+2026-02-27 17:28:46,590:INFO: 0.2367495045625679
+2026-02-27 17:28:46,601:INFO: new best score!!The checkpoint file has been updated.
+2026-02-27 17:28:46,601:INFO: ---------Epoch 2 out of 2---------
+2026-02-27 17:30:22,862:INFO: loss: 6.80357
+2026-02-27 17:30:26,451:INFO: dev loss: 1.572368
+2026-02-27 17:30:31,771:INFO: 0.27449266431711083
+2026-02-27 17:30:31,784:INFO: new best score!!The checkpoint file has been updated.
+2026-02-27 17:49:58,127:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=2, data_path='labeled_data/train_data_0_5000/', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='test', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_16/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=16, register=True, max_sentence_length=50, max_content_length=50)
+2026-02-27 17:49:58,420:INFO: ---------Epoch 1 out of 2---------
+2026-02-27 17:51:38,020:INFO: loss: 11.41107
+2026-02-27 17:51:41,550:INFO: dev loss: 1.583847
+2026-02-27 17:51:45,985:INFO: 0.2367495045625679
+2026-02-27 17:51:45,995:INFO: new best score!!The checkpoint file has been updated.
+2026-02-27 17:51:45,995:INFO: ---------Epoch 2 out of 2---------
+2026-02-27 17:53:23,315:INFO: loss: 6.80357
+2026-02-27 17:53:26,878:INFO: dev loss: 1.572368
+2026-02-27 17:53:31,819:INFO: 0.27449266431711083
+2026-02-27 17:53:31,829:INFO: new best score!!The checkpoint file has been updated.

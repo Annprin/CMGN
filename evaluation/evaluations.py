@@ -130,3 +130,58 @@ def main(benchmarks, my_results, sim_threshold):
         f.write("\nkey word:")
         f.write('\naverage: ' + str(totalSim_word / evaluator_number))
 
+
+def compare_generated_maps(benchmarks, generated_maps_dir):
+    """
+    Compare pre-generated .story maps with target .story maps using
+    the same metrics as the main evaluation pipeline.
+    """
+    targets = [f for f in sorted(listdir(benchmarks)) if f.endswith(".story")]
+
+    totalSim = 0.0
+    totalSim_word = 0.0
+    evaluator_number = 0
+    missing = []
+
+    for target in targets:
+        target_path = join(benchmarks, target)
+        generated_path = join(generated_maps_dir, target)
+
+        if not isfile(generated_path):
+            missing.append(target)
+            continue
+
+        target_pairs, target_word_pairs, _ = parse_docs(target_path)
+        generated_pairs, generated_word_pairs, _ = parse_docs(generated_path)
+
+        if len(target_pairs) <= 1 or len(generated_pairs) <= 1:
+            print(f"skip {target}: not enough nodes for sentence-level comparison")
+            continue
+
+        if len(target_word_pairs) <= 1 or len(generated_word_pairs) <= 1:
+            print(f"skip {target}: not enough nodes for keyword-level comparison")
+            continue
+
+        sim = compare_method(generated_pairs[:], target_pairs) / len(target_pairs)
+        sim_word = compare_method(
+            process_wordPairs(generated_word_pairs),
+            process_wordPairs(target_word_pairs),
+        ) / len(target_word_pairs)
+
+        print(target, sim, sim_word)
+        totalSim += sim
+        totalSim_word += sim_word
+        evaluator_number += 1
+
+    print("evaluated files:", evaluator_number)
+    if missing:
+        print("missing generated files:", len(missing))
+
+    if evaluator_number == 0:
+        raise ValueError("No files were evaluated. Check folder paths and file formats.")
+
+    sentence_avg = totalSim / evaluator_number
+    keyword_avg = totalSim_word / evaluator_number
+    print("sentence average:", sentence_avg)
+    print("key word average:", keyword_avg)
+    return sentence_avg, keyword_avg, missing
