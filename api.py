@@ -1,7 +1,13 @@
 import pickle
 from evaluations import main
 
-def evaluation_sim(my, type, model_type):
+def evaluation_sim(
+    my,
+    type,
+    model_type,
+    enable_tted=False,
+    tted_model_name="sentence-transformers/paraphrase-distilroberta-base-v2",
+):
     benchmarks = "testing_final_20201012/testing_data_hmt_20201012_final/a_labeling_dev/"
 
     my_results = dict()
@@ -16,5 +22,22 @@ def evaluation_sim(my, type, model_type):
         my_results[id_] = [content_sent, probs]
 
     sim_threshold = 0.8
+    if enable_tted:
+        result = main(
+            benchmarks,
+            my_results,
+            sim_threshold,
+            enable_tted=True,
+            tted_model_name=tted_model_name,
+            return_tted=True,
+        )
+        if isinstance(result, tuple) and len(result) == 3:
+            score, word_score, tted_score = result
+            return score, word_score, tted_score
+        if isinstance(result, tuple) and len(result) == 2:
+            score, word_score = result
+            return score, word_score, None
+        raise ValueError(f"Unexpected evaluation result format: {type(result)} {result}")
+
     score, word_score = main(benchmarks, my_results, sim_threshold)
     return score, word_score
