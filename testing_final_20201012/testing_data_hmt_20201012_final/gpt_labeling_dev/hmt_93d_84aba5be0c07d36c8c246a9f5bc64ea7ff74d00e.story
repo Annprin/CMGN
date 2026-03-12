@@ -1,26 +1,33 @@
-(CNN) -- A grandfather who perished in a Christmas day fire at a Connecticut home died from blunt-force head and neck trauma as well as smoke inhalation, while his wife and their three grandchildren died from smoke inhalation, the state medical examiner's office said Wednesday.
-<T1>Connecticut Christmas Day Fire Claims Five Lives
-<T1.1>Official Cause of Death Determined
-<T1.1.1>A grandfather who perished in a Christmas day fire at a Connecticut home died from blunt-force head and neck trauma as well as smoke inhalation, while his wife and their three grandchildren died from smoke inhalation, the state medical examiner's office said Wednesday.
-<T1.2>Details of the Rescue Attempt
-<T1.2.1>Authorities said on Tuesday that Lomer Johnson fell through roof rafters outside a window. One of the children's bodies was found just inside the window.
-<T1.2.2>It appeared Johnson was trying to get the child out, but died after climbing through the window, said Stamford, Connecticut, Acting Fire Chief Antonio Conte. The medical examiner's office said Wednesday Johnson suffered from smoke inhalation in addition to trauma from the fall.
-<T1.3>The Victims and Survivors
-<T1.3.1>Three young sisters -- a 10-year-old and 7-year-old twins -- died in the fire along with the Johnsons. The girls' mother, Madonna Badger, and a friend escaped the blaze.
-<T1.3.2>CNN affiliate WFSB reported that Badger attempted to climb the renovation scaffolding outside the home in an apparent attempt to reach her family. Witnesses said they heard her screaming that her whole life was inside the home, the station said.
-<T1.3.3>Badger, a New York advertising executive, purchased the Connecticut home for $1.7 million in December 2010, according to property records.
-<T1.3.4>Johnson worked as a Santa at Saks Fifth Avenue's Manhattan store this holiday season, the department store said. He and his wife would have celebrated their 49th wedding anniversary on Monday, according to WFSB.
-<T1.4>Investigation into the Fire's Cause
-<T1.4.1>The fire, which broke out about 5 a.m. Sunday morning in the three-story Victorian home, is believed to have been caused by smoldering embers removed from a fireplace about two hours before and taken to an area in the rear of the house, Stamford Chief Fire Marshal Barry Callahan said.
-<T1.4.2>The city of Stamford razed the three-story home on Monday after determining it was unsafe. The million-dollar home in the wealthy Shippan Point neighborhood was under renovation. All that was left of it was the mailbox, around which grieving neighbors placed flowers.
-<T1.4.3>Intense flames and heat pushed back firefighters searching for the trapped family members, Conte told reporters on Tuesday.
-<T1.4.4>The investigation into the fire continues, officials said.
-<T1.4.5>"It's going to take a while," Conte said. "That poor woman lost her entire family in one fell swoop."
-<T1.4.6>Authorities said Tuesday it was unclear whether the home had working smoke detectors.
-<T1.5>CNN's Ronni Berke contributed to this report.
-
 <highlight>
-<T1>Two grandparents and their 3 grandchildren died in the blaze
-<T1.1>Lomer Johnson fell through roof rafters while apparently trying to get a child out
-<T1.2>The fire is thought to have been caused by smoldering fireplace embers
+<T1>a christmas day house fire in connecticut killed two grandparents and their three grandchildren.</T1>
+
+<T1.1>the medical examiner's office released the causes of death for all five victims.</T1.1>
+<T1.1.1>lomer johnson died from blunt-force head and neck trauma as well as smoke inhalation.</T1.1.1>
+<T1.1.2>his wife and the three grandchildren died from smoke inhalation.</T1.1.2>
+
+<T1.2>the circumstances of the deaths suggest lomer johnson tried to rescue one of the children.</T1.2>
+<T1.2.1>johnson fell through roof rafters outside a window where he was attempting to escape.</T1.2.1>
+<T1.2.2>one child's body was found just inside that same window.</T1.2.2>
+<T1.2.3>acting fire chief antonio conte stated it appeared johnson was trying to get the child out.</T1.2.3>
+
+<T1.3>the fire originated from improperly discarded fireplace embers.</T1.3>
+<T1.3.1>chief fire marshal barry callahan stated the fire was likely caused by smoldering embers.</T1.3.1>
+<T1.3.2>the embers had been removed from a fireplace approximately two hours before the fire.</T1.3.2>
+<T1.3.3>they were taken to an area in the rear of the house.</T1.3.3>
+
+<T1.4>the fire broke out around 5 a.m. on sunday in the three-story victorian home.</T1.4>
+<T1.4.1>the million-dollar home in stamford's wealthy shippan point neighborhood was under renovation.</T1.4.1>
+<T1.4.2>intense flames and heat initially prevented firefighters from reaching the trapped family.</T1.4.2>
+<T1.4.3>the city razed the home on monday after deeming it unsafe.</T1.4.3>
+
+<T1.5>the victims' family members experienced profound grief and attempted rescues.</T1.5>
+<T1.5.1>the children's mother, madonna badger, escaped the blaze along with a friend.</T1.5.1>
+<T1.5.2>badger attempted to climb renovation scaffolding to reach her family.</T1.5.2>
+<T1.5.3>witnesses heard her screaming that her whole life was inside the home.</T1.5.3>
+<T1.5.4>lomer and his wife would have celebrated their 49th wedding anniversary on monday.</T1.5.4>
+<T1.5.5>lomer johnson had worked as a santa at saks fifth avenue in manhattan during the holiday season.</T1.5.5>
+
+<T1.6>authorities continue to investigate the fire and its circumstances.</T1.6>
+<T1.6.1>it is unclear whether the home had working smoke detectors.</T1.6.1>
+<T1.6.2>acting fire chief conte noted the investigation will take time, saying "that poor woman lost her entire family in one fell swoop."</T1.6.2>
 </highlight>

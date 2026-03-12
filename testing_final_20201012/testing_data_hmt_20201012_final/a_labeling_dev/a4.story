@@ -13,10 +13,9 @@
 <T1.1.2.3>Holes are cut 1 to 3 meters wide and up to a kilometer deep.</T1.1.2.3>
 <T1.1.2.4>The atomic devices are assembled on site and placed in the hole, usually accompanied by lead-protected diagnostic canister that contains sensors to record the explosion.</T1.1.2.4>
 <T1.1.2.5>The tunnel is then filled with layers of pea gravel, sand and other materials to prevent radioactive material from being released into the atmosphere.</T1.1.2.5>
-<T1.2.3>During a test, the explosion energy is released in less than a millionth of a second, according to CTBTO.</T1.2.3>
-<T1.2.3.1>The temperature will reach about a million degrees within a few microseconds, and shockwaves from the blast, depending on the size, can be detected by seismographs around the planet.</T1.2.3.1>
-<T1.3>Is underground testing dangerous?</T1.3>
-Of the more than 2,000 nuclear detonations since 1945, 75% of the explosions have been tests conducted underground, largely by the major nuclear powers of the United States, the former Soviet Union (now Russia), Britain, France and China, according to the CTBTO.
+<T1.2>During a test, the explosion energy is released in less than a millionth of a second, according to CTBTO.</T1.2>
+<T1.2.1>The temperature will reach about a million degrees within a few microseconds, and shockwaves from the blast, depending on the size, can be detected by seismographs around the planet.</T1.2.1>
+<T1.3>Is underground testing dangerous? Of the more than 2,000 nuclear detonations since 1945, 75% of the explosions have been tests conducted underground, largely by the major nuclear powers of the United States, the former Soviet Union (now Russia), Britain, France and China, according to the CTBTO.</T1.3>
 <T1.3.1>Underground testing is much safer than above-ground testing.</T1.3.1>
 <T1.3.1.1>"With underground testing, you can contain the radiation," said Annika Thunborg, CTBTO spokesperson.</T1.3.1.1>
 <T1.3.1.2>There is always a danger of radiation seeping, hence the total test ban treaty, Thunborg said.</T1.3.1.2>

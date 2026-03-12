@@ -2,11 +2,15 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from os import listdir, makedirs
 from os.path import isfile, join
+import os
+import sys
 import re
 import rake
 import pickle
+import hashlib
 from mind_map_generation import *
 import rouge
+import numpy as np
 import sys
 import os
 import numpy as np
@@ -328,12 +332,12 @@ def main(
             if enable_tted and encoder is not None:
                 reference_tree = _story_to_text_tree(join(benchmarks, target))
                 generated_tree = _pairs_to_text_tree(pairs)
-                print("---------||||||-------")
-                print(pairs)
-                print(generated_tree)
-                print("----------------")
-                print(reference_tree)
-                print("---------||||||-------")
+                # print("---------||||||-------")
+                # print(pairs)
+                # print(generated_tree)
+                # print("----------------")
+                # print(reference_tree)
+                # print("---------||||||-------")
                 if reference_tree is not None and generated_tree is not None:
                     current_tted = avg_tted(
                         generated_tree,
@@ -371,7 +375,149 @@ def main(
 
     return avg_sentence_score, avg_keyword_score
 
-def compare_generated_maps(benchmarks, generated_maps_dir):
+def _hash_sentence_embedding(text, dim=256):
+    vec = np.zeros(dim, dtype=np.float32)
+    tokens = re.findall(r"\w+", str(text).lower())
+    for tok in tokens:
+        h = int(hashlib.md5(tok.encode("utf-8")).hexdigest(), 16)
+        idx = h % dim
+        sign = 1.0 if ((h >> 1) & 1) else -1.0
+        vec[idx] += sign
+    norm = np.linalg.norm(vec)
+    if norm > 0:
+        vec = vec / norm
+    return vec
+
+
+def _tted_encoder(text_or_list):
+    if isinstance(text_or_list, str):
+        return _hash_sentence_embedding(text_or_list)
+    return [_hash_sentence_embedding(t) for t in text_or_list]
+
+
+def _cosine_dist(a, b):
+    a_norm = np.linalg.norm(a)
+    b_norm = np.linalg.norm(b)
+    if a_norm == 0 or b_norm == 0:
+        return 1.0
+    sim = float(np.dot(a, b) / (a_norm * b_norm))
+    return 1.0 - sim
+
+
+def _extract_tagged_nodes_tolerant(content):
+    highlight_blocks = re.findall(re.compile("<highlight>.*?</highlight>", re.DOTALL), content, flags=0)
+    if highlight_blocks:
+        block = highlight_blocks[0]
+    else:
+        block = content
+
+    # 1) strict format: <T1>...</T1>
+
+    strict_matches = [
+        (m.group(1), re.sub(r"\s+", " ", m.group(2)).strip())
+        for m in re.finditer(r"<(T[\d\.]+)>(.*?)</\1>", block, flags=re.DOTALL)
+    ]
+
+    if strict_matches:
+        return strict_matches
+
+    # 2) tolerant line format: <T1>text (without closing tag)
+    tolerant_matches = []
+    for line in block.splitlines():
+        m = re.match(r"^\s*<(T[\d\.]+)>\s*(.*?)\s*$", line)
+        if not m:
+            continue
+        tag = m.group(1)
+        text = m.group(2).strip()
+        if text:
+            tolerant_matches.append((tag, text))
+    return tolerant_matches
+
+
+def _simple_tokens(text):
+    return re.findall(r"[A-Za-z0-9']+", text.lower())
+
+
+def _parse_docs_tolerant(filename):
+    # Try original parser first.
+    try:
+        pairs, word_pairs, length_threshold = parse_docs(filename)
+        if len(pairs) > 1:
+            return pairs, word_pairs, length_threshold
+    except Exception:
+        pass
+
+    with open(filename, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    nodes = _extract_tagged_nodes_tolerant(content)
+    if not nodes:
+        return [], [], 0
+
+    tags = [tag.replace("T", "", 1) if tag.startswith("T") else tag for tag, _ in nodes]
+    texts = [text for _, text in nodes]
+    tag_to_text = {t: c for t, c in zip(tags, texts)}
+
+    pairs = []
+    word_pairs = []
+    for t in tags:
+        cur_text = tag_to_text[t]
+        cur_tokens = _simple_tokens(cur_text)
+        if "." not in t:
+            pairs.append([[], cur_text])
+            word_pairs.append([[], cur_tokens])
+            continue
+
+        father = t[:-2]
+        while father and father not in tag_to_text:
+            father = father[:-2]
+        if not father:
+            continue
+
+        father_text = tag_to_text[father]
+        father_tokens = _simple_tokens(father_text)
+        if father_text == cur_text:
+            continue
+        pairs.append([father_text, cur_text])
+        word_pairs.append([father_tokens, cur_tokens])
+
+    return pairs, word_pairs, len(texts)
+
+
+def _story_to_texttree(story_path, TextTreeCls):
+    with open(story_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    matches = _extract_tagged_nodes_tolerant(content)
+    if not matches:
+        raise ValueError(f"Cannot parse tagged tree from {story_path}")
+
+    tag_to_idx = {}
+    nodes = []
+    adj = []
+    for tag, text in matches:
+        tag_to_idx[tag] = len(nodes)
+        nodes.append(text)
+        adj.append([])
+
+    root_children = []
+    for tag, _ in matches:
+        cur_idx = tag_to_idx[tag]
+        if "." in tag:
+            parent = tag.rsplit(".", 1)[0]
+            if parent in tag_to_idx:
+                adj[tag_to_idx[parent]].append(cur_idx)
+        else:
+            root_children.append(cur_idx)
+
+    # Force a single-root tree for TTED.
+    new_nodes = ["[ROOT]"] + nodes
+    new_adj = [[i + 1 for i in root_children]] + [[c + 1 for c in children] for children in adj]
+    # print(new_adj)
+    return TextTreeCls(new_nodes, new_adj)
+
+
+def compare_generated_maps(benchmarks, generated_maps_dir, compute_tted=False):
     """
     Compare pre-generated .story maps with target .story maps using
     the same metrics as the main evaluation pipeline.
@@ -383,6 +529,27 @@ def compare_generated_maps(benchmarks, generated_maps_dir):
     evaluator_number = 0
     missing = []
 
+    tted_available = False
+    tted_error = None
+    avg_tted_fn = None
+    TextTreeCls = None
+    if compute_tted:
+        try:
+            tted_code_dir = join(os.path.dirname(__file__), "TTED", "text-tree-distance", "code")
+            if tted_code_dir not in sys.path:
+                sys.path.append(tted_code_dir)
+            from tted.computation import avg_tted as _avg_tted
+            from tted.tree_format import TextTree as _TextTree
+            avg_tted_fn = _avg_tted
+            TextTreeCls = _TextTree
+            tted_available = True
+        except Exception as e:
+            tted_error = e
+            print(f"TTED is unavailable ({type(e).__name__}: {e}). Install TTED deps to enable this metric.")
+
+    total_tted = 0.0
+    tted_count = 0
+
     for target in targets:
         target_path = join(benchmarks, target)
         generated_path = join(generated_maps_dir, target)
@@ -391,8 +558,8 @@ def compare_generated_maps(benchmarks, generated_maps_dir):
             missing.append(target)
             continue
 
-        target_pairs, target_word_pairs, _ = parse_docs(target_path)
-        generated_pairs, generated_word_pairs, _ = parse_docs(generated_path)
+        target_pairs, target_word_pairs, _ = _parse_docs_tolerant(target_path)
+        generated_pairs, generated_word_pairs, _ = _parse_docs_tolerant(generated_path)
 
         if len(target_pairs) <= 1 or len(generated_pairs) <= 1:
             print(f"skip {target}: not enough nodes for sentence-level comparison")
@@ -408,7 +575,20 @@ def compare_generated_maps(benchmarks, generated_maps_dir):
             process_wordPairs(target_word_pairs),
         ) / len(target_word_pairs)
 
-        print(target, sim, sim_word)
+        if tted_available:
+            try:
+                target_tree = _story_to_texttree(target_path, TextTreeCls)
+                generated_tree = _story_to_texttree(generated_path, TextTreeCls)
+                tted_val = avg_tted_fn(
+                    generated_tree, target_tree, _tted_encoder, _cosine_dist, unordered=True, use_context=False
+                )
+                total_tted += tted_val
+                tted_count += 1
+                print(target, sim, sim_word, tted_val)
+            except Exception as e:
+                print(f"{target} {sim} {sim_word} TTED_error={type(e).__name__}: {e}")
+        else:
+            print(target, sim, sim_word)
         totalSim += sim
         totalSim_word += sim_word
         evaluator_number += 1
@@ -424,9 +604,14 @@ def compare_generated_maps(benchmarks, generated_maps_dir):
     keyword_avg = totalSim_word / evaluator_number
     print("sentence average:", sentence_avg)
     print("key word average:", keyword_avg)
+    if compute_tted:
+        tted_avg = total_tted / tted_count if tted_count > 0 else None
+        if tted_avg is not None:
+            print("avg tted:", tted_avg)
+        elif tted_error is None:
+            print("avg tted: not computed")
+        return sentence_avg, keyword_avg, missing, tted_avg
     return sentence_avg, keyword_avg, missing
-
-
 
 
 
