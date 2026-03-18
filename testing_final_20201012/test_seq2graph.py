@@ -29,6 +29,7 @@ parser.add_argument("--data_path", dest="data_path", default="../labeled_data/tr
 parser.add_argument("--start", dest="start", default=0)
 parser.add_argument("--end", dest="end", default=5000)
 parser.add_argument("--emb_path", dest="emb_path", default="../labeled_data/embedding/")
+parser.add_argument("--coref_test_maps", dest="coref_test_maps", default="../directed_maps/DGLgraph/test.p")
 parser.add_argument("--nepoch_no_improv", dest="nepoch_no_imprv", default=5, type=int)
 parser.add_argument("--device", dest="device", default=1, type=int)
 parser.add_argument("--model_type", dest="model_type", default="gcn")
@@ -57,6 +58,12 @@ parser.add_argument("--clamp_min", dest="clamp_min", default=0.05, type=float)
 
 parser.add_argument("--seed", dest="seed", default=2, type=int)
 parser.add_argument("--model_name", dest="model_name", default='20230630_test')
+parser.add_argument(
+    "--model_path",
+    dest="model_path",
+    default=None,
+    help="Path to model checkpoint (.pkl). Overrides --seed/--model_name",
+)
 
 config = parser.parse_args()
 print(config)
@@ -141,7 +148,7 @@ def eval_epoch(seq2graph_model, test_data, data_loader, length, crit, config):
     total_results = []
     if isinstance(seq2graph_model, Seq2Graph_rl_gcn):
         # with open('../seq2graph/maps/maps_final_test.p', 'rb') as f:
-        with open('../directed_maps/DGLgraph/test.p', 'rb') as f:
+        with open(config.coref_test_maps, 'rb') as f:
             total_maps = pickle.load(f)
 
     for step, batch in enumerate(tqdm(data_loader, total=length)):
@@ -175,7 +182,9 @@ def main():
     path = "processed_for_seq2graph_test/test_for_mymodel_info.p"
     full_test_data = "processed/test_full.p"
     max_info = "processed_for_seq2graph_test/max_info.p"
-    model_path = "../results_" + str(config.seed) + "/" + config.model_type + f"_{config.model_name}.pkl"
+    model_path = config.model_path or (
+        "../results_" + str(config.seed) + "/" + config.model_type + f"_{config.model_name}.pkl"
+    )
 
     test = pickle.load(open(path, "rb"))[0]
     max_sentence_length, max_content_length = pickle.load(open(max_info, "rb"))
@@ -220,8 +229,6 @@ def get_maps(maps, device, step, batch_size):
 
 if __name__ == '__main__':
     main()
-
-
 
 
 

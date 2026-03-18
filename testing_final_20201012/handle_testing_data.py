@@ -10,7 +10,8 @@ dm_single_close_quote = u'\u2019' #unicode
 dm_double_close_quote = u'\u201d'
 
 END_TOKENS = ['.', '!', '?', '...', "'", "`", '"', dm_single_close_quote, dm_double_close_quote, ")"] # acceptable ways to end a sentence
-
+nltk.download('punkt')
+nltk.download('punkt_tab')
 
 def clean_str(string):
     string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
@@ -52,7 +53,7 @@ def process(data):
         all_token_data.append(cur)
     return all_token_data
 
-def split_total(path):
+def split_total(path, output_path):
     all_info = []
     count_all = 0
     for file_name in os.listdir(path):
@@ -70,7 +71,8 @@ def split_total(path):
             all_info.append([id_, content, abs_, content_sentences, abstract_sentences, content_tokens, abstract_tokens])
     print("all ", count_all)
     print("no empty", len(all_info))
-    #pickle.dump([all_info], open("processed/dev_full.p", "wb"))
+    if output_path:
+        pickle.dump([all_info], open(output_path, "wb"))
 
 def read_text_file(text_files):
     lines = []
@@ -109,5 +111,25 @@ def get_art_abs(story_file):
     return article_lines, highlights
 
 if __name__ == '__main__':
-    path = "testing_data_hmt_20201012_final/dev_full_original/"
-    split_total(path)
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Process .story files into dev_full.p format")
+    parser.add_argument(
+        "--input_dir",
+        default="testing_final_20201012/testing_data_hmt_20201012_final/dev_full_original/",
+        help="Directory with .story files",
+    )
+    parser.add_argument(
+        "--output",
+        default="testing_final_20201012/processed_new/dev_full.p",
+        help="Output pickle path, e.g. processed/dev_full.p",
+    )
+    args = parser.parse_args()
+
+    path = args.input_dir
+    if not path.endswith("/") and not path.endswith("\\"):
+        path = path + "/"
+    output_dir = os.path.dirname(args.output)
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    split_total(path, args.output)

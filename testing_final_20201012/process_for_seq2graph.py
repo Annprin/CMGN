@@ -8,6 +8,23 @@ import nltk
 import re
 from tqdm import tqdm
 
+try:
+    import torch
+    from transformers import DistilBertModel, DistilBertTokenizerFast
+except Exception:
+    torch = None
+    DistilBertModel = None
+    DistilBertTokenizerFast = None
+
+import sys
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.append(ROOT_DIR)
+try:
+    from mind_map_generation import parse_docs
+except Exception:
+    parse_docs = None
+
 def get_label(id_, bert_labels):
     label = []
     for each in bert_labels:
@@ -17,6 +34,92 @@ def get_label(id_, bert_labels):
             # print(type(label))
             break
     return label
+
+
+def _embed_sentences(model, tokenizer, sentences, batch_size, device):
+    embeddings = []
+    for i in range(0, len(sentences), batch_size):
+        batch = sentences[i : i + batch_size]
+        enc = tokenizer(
+            batch,
+            padding=True,
+            truncation=True,
+            max_length=128,
+            return_tensors="pt",
+        )
+        enc = {k: v.to(device) for k, v in enc.items()}
+        with torch.no_grad():
+            out = model(**enc)
+            last_hidden = out.last_hidden_state
+            mask = enc["attention_mask"].unsqueeze(-1).float()
+            pooled = (last_hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1.0)
+        embeddings.append(pooled.cpu().numpy())
+    return np.vstack(embeddings)
+
+
+def _cosine_matrix(x):
+    x_norm = x / (np.linalg.norm(x, axis=1, keepdims=True) + 1e-8)
+    sim = np.matmul(x_norm, x_norm.T)
+    return (sim + 1.0) / 2.0
+
+
+def build_labels_with_distilbert(data, batch_size, device):
+    if DistilBertTokenizerFast is None or DistilBertModel is None or torch is None:
+        raise RuntimeError("transformers/torch not available for distilbert labels")
+
+    tokenizer = DistilBertTokenizerFast.from_pretrained("distilbert-base-uncased")
+    model = DistilBertModel.from_pretrained("distilbert-base-uncased")
+    model.eval()
+    model.to(device)
+
+    labels = []
+    for each in tqdm(data, total=len(data)):
+        id_ = each[0]
+        content_sents = each[3]
+        if len(content_sents) == 0:
+            labels.append([id_, np.zeros((0, 0), dtype=np.float32)])
+            continue
+        emb = _embed_sentences(model, tokenizer, content_sents, batch_size, device)
+        mat = _cosine_matrix(emb)
+        np.fill_diagonal(mat, 1.0)
+        labels.append([id_, mat])
+    return labels
+
+
+def _normalize_sent(s):
+    return re.sub(r"\s+", " ", s.strip().lower())
+
+
+def build_labels_from_gold(data, gold_dir):
+    if parse_docs is None:
+        raise RuntimeError("mind_map_generation.parse_docs not available")
+
+    labels = []
+    for each in tqdm(data, total=len(data)):
+        id_ = each[0]
+        content_sents = each[3]
+        norm_to_idxs = collections.defaultdict(list)
+        for idx, s in enumerate(content_sents):
+            norm_to_idxs[_normalize_sent(s)].append(idx)
+
+        story_path = os.path.join(gold_dir, f"{id_}.story")
+        if not os.path.exists(story_path):
+            labels.append([id_, np.zeros((len(content_sents), len(content_sents)), dtype=np.float32)])
+            continue
+
+        pairs, _word_pairs, _len_contents = parse_docs(story_path)
+        mat = np.zeros((len(content_sents), len(content_sents)), dtype=np.float32)
+        np.fill_diagonal(mat, 1.0)
+        for parent, child in pairs:
+            if not parent or not child:
+                continue
+            p_idxs = norm_to_idxs.get(_normalize_sent(parent), [])
+            c_idxs = norm_to_idxs.get(_normalize_sent(child), [])
+            for pi in p_idxs:
+                for ci in c_idxs:
+                    mat[pi, ci] = 1.0
+        labels.append([id_, mat])
+    return labels
 
 def handle_data(word_to_id, data, hmt_max_sentence_length, hmt_max_content_length, bert_labels):
     new_data = []
@@ -120,16 +223,61 @@ def get_max_length(data):
     return max_sentence_length, max_content_length
 
 def main():
-    data_path = "processed/dev_full.p"
-    writing_path = "processed_for_seq2graph_dev/"
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Process dev_full.p into seq2graph input")
+    parser.add_argument(
+        "--input",
+        default="processed/dev_full.p",
+        help="Input pickle path (dev_full.p format)",
+    )
+    parser.add_argument(
+        "--output_dir",
+        default="processed_for_seq2graph_dev/",
+        help="Output directory for dev_for_mymodel_info.p and max_info.p",
+    )
+    parser.add_argument(
+        "--labels",
+        default=None,
+        help="BERT labels pickle path (optional)",
+    )
+    parser.add_argument(
+        "--label_mode",
+        choices=["file", "distilbert", "zeros", "gold"],
+        default="file",
+        help="How to obtain labels when --labels is missing",
+    )
+    parser.add_argument(
+        "--gold_dir",
+        default=None,
+        help="Directory with gold .story files (a_labeling_dev)",
+    )
+    parser.add_argument("--batch_size", type=int, default=32, help="Batch size for distilbert")
+    parser.add_argument("--device", default="cpu", help="cpu or cuda for distilbert")
+    args = parser.parse_args()
+
+    data_path = args.input
+    writing_path = args.output_dir
     os_exists = os.path.exists(writing_path)
     if not os_exists:
         os.mkdir(writing_path)
 
-    labels_by_bert = "to_dev/dev_bert.p"
-    bert_labels = pickle.load(open(labels_by_bert, "rb"))[0]
-
     data = pickle.load(open(data_path, "rb"))[0]
+
+    if args.labels:
+        labels_by_bert = args.labels
+        bert_labels = pickle.load(open(labels_by_bert, "rb"))[0]
+    else:
+        if args.label_mode == "file":
+            raise FileNotFoundError("labels file is required when label_mode=file")
+        if args.label_mode == "distilbert":
+            bert_labels = build_labels_with_distilbert(data, args.batch_size, args.device)
+        elif args.label_mode == "gold":
+            if not args.gold_dir:
+                raise FileNotFoundError("gold_dir is required when label_mode=gold")
+            bert_labels = build_labels_from_gold(data, args.gold_dir)
+        else:
+            bert_labels = [[each[0], np.zeros((len(each[3]), len(each[3])), dtype=np.float32)] for each in data]
 
     max_sentence_1, max_list_1 = get_max_length(data)
 
@@ -141,14 +289,13 @@ def main():
 
     ####### build vocabulary #######
 
-    word_to_index, index_to_word, _ = pickle.load(open("../labeling/model/my_vocabulary_add_padd.pickle", "rb"))
+    word_to_index, index_to_word, _ = pickle.load(open("labeling/model/my_vocabulary_add_padd.pickle", "rb"))
 
     ###### handle training data and testing data ########
     data_id = handle_data(word_to_index, data, max_sentence_length, max_content_length, bert_labels)
 
-    # 2022-03-25 fixed bug next two lines removed 
-    # pickle.dump([data_id], open(writing_path + "/dev_for_mymodel_info.p", "wb"))
-    # pickle.dump([max_sentence_length, max_content_length], open(writing_path + "/max_info.p", "wb"))
+    pickle.dump([data_id], open(os.path.join(writing_path, "dev_for_mymodel_info.p"), "wb"))
+    pickle.dump([max_sentence_length, max_content_length], open(os.path.join(writing_path, "max_info.p"), "wb"))
     ### word_id_info ../model/my_vocabulary_add_padd.pickle
     ### embedding ../word_embedding 还没有 <pad>
 

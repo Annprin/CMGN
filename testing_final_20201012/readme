@@ -3,3 +3,69 @@
 3. 用labeling_by_bert_20200108里的main_benchmarks 做标注 得到  test_bert.p
 4. 处理要用于seq2graph的模型的数据  process_for_seq2graph.py
 5. test_seq2graph.py
+## Dev Inference from New .story Files
+
+This is the end-to-end flow for running dev inference on new `.story` files.
+
+### 1) Build `dev_full.p` from `.story`
+
+```
+python handle_testing_data.py \
+  --input_dir testing_data_hmt_20201012_final/dev_full_original_new/ \
+  --output processed/dev_full_new.p
+```
+
+### 2) Build seq2graph input (with labels)
+
+```
+python process_for_seq2graph.py \
+  --input processed/dev_full_new.p \
+  --output_dir processed_for_seq2graph_dev_new/ \
+  --labels to_dev/dev_bert.p
+
+If you don't have labels, you can generate them on the fly:
+
+```
+python process_for_seq2graph.py \
+  --input processed/dev_full_new.p \
+  --output_dir processed_for_seq2graph_dev_new/ \
+  --label_mode distilbert \
+  --device cpu
+```
+
+If you want to use gold labels from `a_labeling_dev`:
+
+```
+python process_for_seq2graph.py \
+  --input processed/dev_full_new.p \
+  --output_dir processed_for_seq2graph_dev_new/ \
+  --label_mode gold \
+  --gold_dir testing_data_hmt_20201012_final/a_labeling_dev
+```
+```
+
+This writes:
+
+```
+processed_for_seq2graph_dev_new/dev_for_mymodel_info.p
+processed_for_seq2graph_dev_new/max_info.p
+```
+
+### 3) (Optional) Build coreference maps for dev
+
+If you use GCN coreference maps, generate them for the new dev pickle:
+
+```
+python ../create_coreference_maps.py \
+  --input processed/dev_full_new.p \
+  --output_dir ../directed_maps_simple
+```
+
+This creates `directed_maps_simple/DGLgraph/dev_full_new.p` if DGL is available.
+
+### 4) Run inference
+
+```
+python test_seq2graph.py \
+  --coref_test_maps ../directed_maps_simple/DGLgraph/dev_full_new.p
+```

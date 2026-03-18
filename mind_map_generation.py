@@ -7,6 +7,7 @@ import copy
 from nltk.stem import SnowballStemmer
 from nltk.corpus import stopwords
 from sklearn.cluster import KMeans
+import os
 
 def clean_sentences(doc_sents, summary_sents):
     stemmer = SnowballStemmer("english")
@@ -77,7 +78,8 @@ def rouge_sim2(summary, hypothesis):
     return score
 
 def extractKeywords(sentences, numSents):
-    rake_object = rake.Rake("SmartStoplist.txt")
+    stoplist_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "SmartStoplist.txt")
+    rake_object = rake.Rake(stoplist_path)
     if numSents > 1:
         text = ' '.join(sentences)
     else:
@@ -789,7 +791,7 @@ def my_generate_mindmap(o, prob_matrix, numPaires, sim_threshold, length_thresho
     pairs, wordPairs, story_content = truncating_tree_through_local_keywords(
         father_to_child, child_to_father, indexes, o, numPaires, sim_threshold, length_threshold
     )
-    print("pairs ", pairs)
+    # print("pairs ", pairs)
     if return_story:
         return pairs, wordPairs, story_content
     return pairs, wordPairs

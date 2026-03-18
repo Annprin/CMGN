@@ -38,6 +38,11 @@ parser.add_argument("--batch_size", dest="batch_size", default=64, type=int)
 parser.add_argument("--test_batch_size", dest="test_batch_size", default=64, type=int)
 parser.add_argument("--nepochs", dest="nepochs", default=120, type=int)
 parser.add_argument("--data_path", dest="data_path", default="labeled_data/train_data_0_5000/")
+parser.add_argument("--data_info", dest="data_info", default="data_info.p")
+parser.add_argument("--max_info", dest="max_info", default="max_info.p")
+parser.add_argument("--coref_train_maps", dest="coref_train_maps", default="directed_maps/DGLgraph/train.p")
+parser.add_argument("--coref_valid_maps", dest="coref_valid_maps", default="directed_maps/DGLgraph/valid.p")
+parser.add_argument("--coref_dev_maps", dest="coref_dev_maps", default="directed_maps/DGLgraph/dev.p")
 parser.add_argument("--start", dest="start", default=0)
 parser.add_argument("--end", dest="end", default=5000)
 parser.add_argument("--emb_path", dest="emb_path", default="labeled_data/embedding/")
@@ -93,6 +98,8 @@ def data_loader(inputs, batch_size):
     all_sentences_abstract = [[]]
     block_num = 0
     for i, each in enumerate(inputs):
+        # print("Processing data index: ", i)
+        # print('Length:', each[5], 'Label shape:', len(each[4]), len(each[4][0]), 'Content shape:', len(each[1]))
         if math.floor(i / batch_size) == block_num:
             all_ids[block_num].append(each[0])
             all_contents[block_num].extend(each[1])
@@ -210,7 +217,7 @@ def train_epoch(seq2graph_model, data_loader, length, crit, optimizer, config):
     total_loss = 0
     if isinstance(seq2graph_model, Seq2Graph_rl_gcn):
         # with open('maps/maps_final.p', 'rb') as f:
-        with open('directed_maps/DGLgraph/train.p', 'rb') as f:
+        with open(config.coref_train_maps, 'rb') as f:
             total_maps = pickle.load(f)
 
     if config.remove_edges != 0:
@@ -241,7 +248,7 @@ def eval_epoch(seq2graph_model, data_loader, length, crit, config):
     total_loss = 0
     if isinstance(seq2graph_model, Seq2Graph_rl_gcn):
         # with open('maps/maps_final_valid.p', 'rb') as f:
-        with open('directed_maps/DGLgraph/valid.p', 'rb') as f:
+        with open(config.coref_valid_maps, 'rb') as f:
             total_maps = pickle.load(f)
 
     for step, batch in enumerate(tqdm(data_loader, total=length)):
@@ -271,7 +278,7 @@ def eval_test_epoch(seq2graph_model, test_data, data_loader, length, crit, confi
     total_results = []
     if isinstance(seq2graph_model, Seq2Graph_rl_gcn):
         # with open('maps/maps_final_dev.p', 'rb') as f:
-        with open('directed_maps/DGLgraph/dev.p', 'rb') as f:
+        with open(config.coref_dev_maps, 'rb') as f:
             total_maps = pickle.load(f)
 
     for step, batch in enumerate(tqdm(data_loader, total=length)):
@@ -391,8 +398,8 @@ def main():
     if not os.path.exists(path_log):
         os.makedirs(path_log)
 
-    path = config.data_path + "data_info.p"
-    max_info = config.data_path + "max_info.p"
+    path = config.data_path + config.data_info
+    max_info = config.data_path + config.max_info
 
     train_data, valid_data = pickle.load(open(path, "rb"))
     _, _, max_sentence_length, max_content_length = pickle.load(open(max_info, "rb"))

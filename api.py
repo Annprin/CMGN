@@ -1,3 +1,4 @@
+import os
 import pickle
 from evaluations import main
 
@@ -7,8 +8,18 @@ def evaluation_sim(
     model_type,
     enable_tted=False,
     tted_model_name="sentence-transformers/paraphrase-distilroberta-base-v2",
+    output_dir=None,
+    benchmarks=None,
 ):
-    benchmarks = "testing_final_20201012/testing_data_hmt_20201012_final/a_labeling_dev/"
+    if benchmarks is None:
+        benchmarks = "testing_final_20201012/testing_data_hmt_20201012_final/a_labeling_dev/"
+
+    # Make benchmarks path robust to cwd
+    if not os.path.isabs(benchmarks):
+        base = os.path.dirname(os.path.abspath(__file__))
+        candidate = os.path.join(base, benchmarks)
+        if os.path.isdir(candidate):
+            benchmarks = candidate
 
     my_results = dict()
     for e in my:
@@ -30,6 +41,7 @@ def evaluation_sim(
             enable_tted=True,
             tted_model_name=tted_model_name,
             return_tted=True,
+            output_dir=output_dir,
         )
         if isinstance(result, tuple) and len(result) == 3:
             score, word_score, tted_score = result
@@ -39,5 +51,5 @@ def evaluation_sim(
             return score, word_score, None
         raise ValueError(f"Unexpected evaluation result format: {type(result)} {result}")
 
-    score, word_score = main(benchmarks, my_results, sim_threshold)
+    score, word_score = main(benchmarks, my_results, sim_threshold, output_dir=output_dir)
     return score, word_score

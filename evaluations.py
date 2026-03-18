@@ -302,7 +302,7 @@ def main(
 
     for idx, target in enumerate(cc):
         if target.find('.story') >= 0:
-            print(target)
+            # print(target)
             # if target == '12.story':
             #     continue
             pairs2, wordPairs2, length_threshold = parse_docs(join(benchmarks, target))
