@@ -53,6 +53,7 @@ parser.add_argument("--full", required=True, help="dev_full.p")
 parser.add_argument("--max_info", required=True, help="max_info.p")
 parser.add_argument("--benchmarks", default="testing_data_hmt_20201012_final/a_labeling_dev/")
 parser.add_argument("--generated_dir", default=None, help="Output dir for generated .story files")
+parser.add_argument("--debug_compare", action="store_true", help="Print debug info for comparison")
 
 config = parser.parse_args()
 print(config)
@@ -154,11 +155,28 @@ def train(seq2graph_model, crit, test_data, full_test_data, config):
     print("deving evaluation........")
     start = time.time()
     total_ = eval_epoch(seq2graph_model, full_test_data, test_data_loader, length, crit, config)
+    # print(total_)
     end = time.time()
     print("time ", end-start)
 
     os.makedirs("to_dev", exist_ok=True)
     pickle.dump([total_], open("to_dev/" + str(config.seed) + "_dev_" + config.model_type + f"_{config.model_name}.p", "wb"))
+
+    if config.debug_compare:
+        try:
+            bench = config.benchmarks
+            if not os.path.isabs(bench):
+                bench = os.path.abspath(os.path.join(os.path.dirname(__file__), bench))
+            gold_files = [f for f in os.listdir(bench) if f.endswith(".story")]
+            gold_ids = sorted([f[: f.find(".story")] for f in gold_files])
+            pred_ids = sorted([e[0] for e in total_])
+            print("DEBUG benchmarks:", bench)
+            print("DEBUG generated_dir:", config.generated_dir)
+            print("DEBUG gold count:", len(gold_ids), "pred count:", len(pred_ids))
+            print("DEBUG gold ids sample:", gold_ids[:5])
+            print("DEBUG pred ids sample:", pred_ids[:5])
+        except Exception as exc:
+            print("DEBUG compare info failed:", exc)
 
     score, word_score, tted_score = evaluation_sim(
         total_,

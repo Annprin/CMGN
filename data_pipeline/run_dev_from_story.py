@@ -27,9 +27,21 @@ def main():
         help="Output dev_full.p path",
     )
     parser.add_argument(
+        "--dev_full_mode",
+        choices=["build", "read"],
+        default="build",
+        help="build: create dev_full.p from .story; read: use existing dev_full.p",
+    )
+    parser.add_argument(
         "--seq2graph_dir",
         default="testing_final_20201012/processed_for_seq2graph_dev_new/",
         help="Output dir for dev_for_mymodel_info.p and max_info.p",
+    )
+    parser.add_argument(
+        "--seq2graph_mode",
+        choices=["build", "read"],
+        default="build",
+        help="build: create dev_for_mymodel_info.p; read: use existing files",
     )
     parser.add_argument(
         "--label_mode",
@@ -53,6 +65,12 @@ def main():
         "--coref_out",
         default="directed_maps_simple",
         help="Output dir for coreference maps",
+    )
+    parser.add_argument(
+        "--coref_mode",
+        choices=["build", "read", "skip"],
+        default="build",
+        help="build: create coref maps; read: use existing maps; skip: no coref",
     )
     parser.add_argument(
         "--skip_coref",
@@ -102,21 +120,27 @@ def main():
         default=None,
         help="Output dir for generated .story files during dev inference",
     )
+    parser.add_argument(
+        "--benchmarks",
+        default=None,
+        help="Gold .story directory for evaluation (a_labeling_dev)",
+    )
     args = parser.parse_args()
 
     # Step 1: dev_full.p
-    run(
-        [
-            sys.executable,
-            "testing_final_20201012/handle_testing_data.py",
-            "--input_dir",
-            args.story_dir,
-            "--output",
-            args.dev_full,
-        ]
-    )
+    if args.dev_full_mode == "build":
+        run(
+            [
+                sys.executable,
+                "testing_final_20201012/handle_testing_data.py",
+                "--input_dir",
+                args.story_dir,
+                "--output",
+                args.dev_full,
+            ]
+        )
 
-    if not args.prep_only:
+    if not args.prep_only and args.seq2graph_mode == "build":
         # Step 2: processed_for_seq2graph
         cmd = [
             sys.executable,
@@ -144,7 +168,7 @@ def main():
 
     # Step 3: coreference maps
     coref_maps = args.coref_maps
-    if not args.skip_coref:
+    if args.coref_mode == "build" and not args.skip_coref:
         run(
             [
                 sys.executable,
@@ -157,6 +181,12 @@ def main():
         )
         base = os.path.basename(args.dev_full).replace("_full", "").replace(".p", "")
         coref_maps = os.path.join(args.coref_out, "DGLgraph", f"{base}.p")
+    elif args.coref_mode == "read":
+        if not coref_maps:
+            base = os.path.basename(args.dev_full).replace("_full", "").replace(".p", "")
+            coref_maps = os.path.join(args.coref_out, "DGLgraph", f"{base}.p")
+    elif args.coref_mode == "skip":
+        coref_maps = None
 
     # Step 4: inference or training
     if not args.skip_infer and not args.prep_only:
@@ -183,11 +213,14 @@ def main():
             if not coref_maps:
                 raise SystemExit("coref maps path is required for inference")
             if args.clear_generated:
-                gen_dir = os.path.join(
-                    "testing_final_20201012",
-                    "testing_data_hmt_20201012_final",
-                    "a_generated_dev",
-                )
+                if args.generated_dir:
+                    gen_dir = os.path.abspath(args.generated_dir)
+                else:
+                    gen_dir = os.path.join(
+                        "testing_final_20201012",
+                        "testing_data_hmt_20201012_final",
+                        "a_generated_dev",
+                    )
                 if os.path.isdir(gen_dir):
                     shutil.rmtree(gen_dir)
             if not os.path.isabs(coref_maps):
@@ -204,7 +237,16 @@ def main():
                     os.path.abspath(args.dev_full),
                     "--max_info",
                     os.path.abspath(os.path.join(args.seq2graph_dir, "max_info.p")),
-                    *(["--generated_dir", args.generated_dir] if args.generated_dir else []),
+                    *(
+                        ["--generated_dir", os.path.abspath(args.generated_dir)]
+                        if args.generated_dir
+                        else []
+                    ),
+                    *(
+                        ["--benchmarks", os.path.abspath(args.benchmarks)]
+                        if args.benchmarks
+                        else []
+                    ),
                     *(["--model_path", args.infer_model_path] if args.infer_model_path else []),
                 ],
                 cwd="testing_final_20201012",

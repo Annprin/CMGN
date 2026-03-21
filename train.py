@@ -43,6 +43,9 @@ parser.add_argument("--max_info", dest="max_info", default="max_info.p")
 parser.add_argument("--coref_train_maps", dest="coref_train_maps", default="directed_maps/DGLgraph/train.p")
 parser.add_argument("--coref_valid_maps", dest="coref_valid_maps", default="directed_maps/DGLgraph/valid.p")
 parser.add_argument("--coref_dev_maps", dest="coref_dev_maps", default="directed_maps/DGLgraph/dev.p")
+parser.add_argument("--dev_input", dest="dev_input", default="testing_final_20201012/processed_for_seq2graph_dev/dev_for_mymodel_info.p")
+parser.add_argument("--dev_full", dest="dev_full", default="testing_final_20201012/processed/dev_full.p")
+parser.add_argument("--dev_max_info", dest="dev_max_info", default="testing_final_20201012/processed_for_seq2graph_dev/max_info.p")
 parser.add_argument("--start", dest="start", default=0)
 parser.add_argument("--end", dest="end", default=5000)
 parser.add_argument("--emb_path", dest="emb_path", default="labeled_data/embedding/")
@@ -297,13 +300,9 @@ def eval_test_epoch(seq2graph_model, test_data, data_loader, length, crit, confi
     return test_data
 
 def eval_score(seq2graph_model, crit, config):
-    # path = "../testing_final_20200909/processed_for_seq2graph_dev/dev_for_mymodel_info.p"
-    # full_dev_data = "../testing_final_20200909/processed/dev_full.p"
-    # max_info = "../testing_final_20200909/processed_for_seq2graph_dev/max_info.p"
-    # old code above
-    path = "testing_final_20201012/processed_for_seq2graph_dev/dev_for_mymodel_info.p"
-    full_dev_data = "testing_final_20201012/processed/dev_full.p"
-    max_info = "testing_final_20201012/processed_for_seq2graph_dev/max_info.p"
+    path = config.dev_input
+    full_dev_data = config.dev_full
+    max_info = config.dev_max_info
 
     dev_data = pickle.load(open(path, "rb"))[0]
     max_sentence_length, max_content_length = pickle.load(open(max_info, "rb"))

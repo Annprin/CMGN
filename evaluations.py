@@ -326,7 +326,7 @@ def main(
             wordPairs = process_wordPairs(wordPairs)
             wordPairs2 = process_wordPairs(wordPairs2)
             sim_word = compare_method(wordPairs, wordPairs2)
-            print(sim/len(pairs2), sim_word/len(wordPairs2))
+            print(target_id, sim/len(pairs2), sim_word/len(wordPairs2))
 
 
             if enable_tted and encoder is not None:
@@ -612,7 +612,6 @@ def compare_generated_maps(benchmarks, generated_maps_dir, compute_tted=False):
             print("avg tted: not computed")
         return sentence_avg, keyword_avg, missing, tted_avg
     return sentence_avg, keyword_avg, missing
-
 
 
 

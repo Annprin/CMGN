@@ -103,10 +103,12 @@ def get_art_abs(story_file):
     next_is_highlight = False
     for idx, line in enumerate(lines):
         if line == "":
-            continue # empty line
+            continue  # empty line
         elif line.startswith("@highlight"):
             next_is_highlight = True
         elif next_is_highlight:
+            highlights.append(line)
+        else:
             article_lines.append(line)
     return article_lines, highlights
 
