@@ -21,6 +21,8 @@ parser.add_argument("--model_type", dest="model_type", default="gcn")
 parser.add_argument("--seed", dest="seed", default=25, type=int)
 parser.add_argument("--model_name", dest="model_name", default="20230618")
 parser.add_argument("--longer", dest="longer", default=False, type=bool)
+parser.add_argument("--enable_tted", dest="enable_tted", action="store_true")
+parser.add_argument("--tted_model_name", dest="tted_model_name", default="sentence-transformers/paraphrase-distilroberta-base-v2")
 config = parser.parse_args()
 print(config)
 with open('log.txt', 'a+', encoding='utf-8') as f:
@@ -58,7 +60,21 @@ if __name__ == '__main__':
 
     sim_threshold = 0.8
 
-    main(benchmarks, my_results, sim_threshold)
+    main(
+        benchmarks,
+        my_results,
+        sim_threshold,
+        enable_tted=config.enable_tted,
+        tted_model_name=config.tted_model_name,
+        return_tted=config.enable_tted,
+    )
     if config.longer:
         print("\nfor longer articles:")
-        main(benchmarks, longer_results, sim_threshold)
+        main(
+            benchmarks,
+            longer_results,
+            sim_threshold,
+            enable_tted=config.enable_tted,
+            tted_model_name=config.tted_model_name,
+            return_tted=config.enable_tted,
+        )

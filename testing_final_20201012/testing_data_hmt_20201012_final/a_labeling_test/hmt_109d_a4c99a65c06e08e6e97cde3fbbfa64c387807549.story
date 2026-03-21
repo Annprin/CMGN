@@ -32,7 +32,7 @@
 
 <T1.5.1>ET Thursday, Syfy</T1.5.1>
 
-<T1.5.1>Syfy takes on Greek mythology in this new series with plenty of magic, creatures and interesting costumes.</T1.5.1>
+<T1.5.2>Syfy takes on Greek mythology in this new series with plenty of magic, creatures and interesting costumes.</T1.5.2>
 
 <T1.6>"Outlander," 9 p.m.</T1.6>
 

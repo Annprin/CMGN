@@ -1491,3 +1491,20 @@ sentence:
 average: 0.30570134585872905
 key word:
 average: 0.40291874475010697
+seed = 9, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+2026-03-21  11:27:09
+sentence:
+average: 0.3097571944534458
+key word:
+average: 0.40030915907532755
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
