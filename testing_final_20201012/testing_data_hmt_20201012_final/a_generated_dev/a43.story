@@ -2,28 +2,28 @@
 
 <T1>(cnn) -- investigators have found evidence that sandy hook elementary school gunman adam lanza "was obsessed" with other mass murderers, a source with knowledge of the investigation told cnn tuesday.</T1>
 <T1.1>this news follows an earlier report that lanza may have been motivated by a desire to outdo anders behring breivik, the norwegian man who killed 77 people in july 2011, law enforcement sources told cbs evening news.</T1.1>
-<T1.1.1>july 22, 2011, will live long in the memory of all norwegians after the carnage that unfolded that day.</T1.1.1>
-<T1.1.1.1>"we'll look at everything," vance said.</T1.1.1.1>
-<T1.1.2>a final report on the newtown shooting is expected this summer.</T1.1.2>
-<T1.2>the unnamed cbs sources said lanza saw himself as being in direct competition with breivik, who killed eight with a bombing in downtown oslo before he moved to a nearby island where he hunted down and fatally shot 69 people.</T1.2>
-<T1.2.1>the officials, who have been briefed on the newtown, connecticut, investigation, told cbs that evidence shows lanza was likely acting out the fantasies of a video game in killing 20 children and six adults at the school.</T1.2.1>
-<T1.2.2>"we are dealing with a deceased shooter and trying to rebuild history."</T1.2.2>
-<T1.3>according to the sources, the 20-year-old lanza wanted to top breivik's death toll and went to the connecticut school on december 14 because it was the "easiest target" and had the "largest cluster of people."</T1.3>
-<T1.4>the same officials also linked lanza's actions to violent video games.</T1.4>
-<T1.5>authorities have been largely tight-lipped about their investigation.</T1.5>
-<T1.6>according to the news release, no information will be released until the investigation is finished, but detectives have no date when they will wrap up their interviews and evidence gathering.</T1.6>
-<T1.7>he took his own life with a handgun as authorities closed in.</T1.7>
+<T1.1.1>the unnamed cbs sources said lanza saw himself as being in direct competition with breivik, who killed eight with a bombing in downtown oslo before he moved to a nearby island where he hunted down and fatally shot 69 people.</T1.1.1>
+<T1.2>according to the sources, the 20-year-old lanza wanted to top breivik's death toll and went to the connecticut school on december 14 because it was the "easiest target" and had the "largest cluster of people."</T1.2>
+<T1.2.1>the same officials also linked lanza's actions to violent video games.</T1.2.1>
+<T1.2.2>the officials, who have been briefed on the newtown, connecticut, investigation, told cbs that evidence shows lanza was likely acting out the fantasies of a video game in killing 20 children and six adults at the school.</T1.2.2>
+<T1.2.2.1>"we'll look at everything," vance said.</T1.2.2.1>
+<T1.3>"we are dealing with a deceased shooter and trying to rebuild history."</T1.3>
+<T1.4>lanza's mother, nancy, also was found shot dead at her newtown home.</T1.4>
+<T1.4.1>hundreds of state troopers, detectives and other law enforcement personnel are analyzing every round of ammunition fired, examining the gunman's medical history and computer use and talking to witnesses, vance said previously.</T1.4.1>
+<T1.5>police believe lanza killed his mother before beginning his school rampage.</T1.5>
+<T1.6>after detonating a bomb outside the prime minister's office in oslo, killing eight people, breivik took a ferry to utoya island and embarked on a shooting spree that took the lives of another 69 people attending a youth camp.</T1.6>
+<T1.6.1>he took his own life with a handgun as authorities closed in.</T1.6.1>
+<T1.7>a spokesman for the connecticut state police dismissed the cbs report, calling it speculation.</T1.7>
 <T1.8>"it's inaccurate ... i talked with cbs and told them that," lt. paul vance told cnn.</T1.8>
-<T1.9>lanza's mother, nancy, also was found shot dead at her newtown home.</T1.9>
-<T1.10>hundreds of state troopers, detectives and other law enforcement personnel are analyzing every round of ammunition fired, examining the gunman's medical history and computer use and talking to witnesses, vance said previously.</T1.10>
-<T1.11>a spokesman for the connecticut state police dismissed the cbs report, calling it speculation.</T1.11>
+<T1.9>authorities have been largely tight-lipped about their investigation.</T1.9>
+<T1.9.1>vance, however, did not dismiss the notion that investigators may have looked at the norway shooting.</T1.9.1>
+<T1.10>july 22, 2011, will live long in the memory of all norwegians after the carnage that unfolded that day.</T1.10>
+<T1.10.1>"one thing leads to another."</T1.10.1>
+<T1.11>authorities said breivik roamed the lake island shooting at campers, before members of an elite norwegian police unit took him into custody.</T1.11>
+<T1.11.1>a final report on the newtown shooting is expected this summer.</T1.11.1>
 <T1.12>vance released a statement tuesday afternoon that didn't refer to any specific news reports but denied that any information came from the state police.</T1.12>
-<T1.13>after detonating a bomb outside the prime minister's office in oslo, killing eight people, breivik took a ferry to utoya island and embarked on a shooting spree that took the lives of another 69 people attending a youth camp.</T1.13>
-<T1.14>cnn's susan candiotti contributed to this report.</T1.14>
-<T1.15>police believe lanza killed his mother before beginning his school rampage.</T1.15>
-<T1.16>"the unfortunate origin of unsubstantiated details of this case are both hurtful and, many times, inaccurate," vance said in the statement.</T1.16>
-<T1.17>authorities said breivik roamed the lake island shooting at campers, before members of an elite norwegian police unit took him into custody.</T1.17>
-<T1.18>vance, however, did not dismiss the notion that investigators may have looked at the norway shooting.</T1.18>
-<T1.19>"one thing leads to another."</T1.19>
-<T1.20>in august 2012 breivik, who boasted of being an ultranationalist who killed his victims to fight multiculturalism in norway, was judged to be sane at the time of the attack.</T1.20>
+<T1.13>"the unfortunate origin of unsubstantiated details of this case are both hurtful and, many times, inaccurate," vance said in the statement.</T1.13>
+<T1.14>according to the news release, no information will be released until the investigation is finished, but detectives have no date when they will wrap up their interviews and evidence gathering.</T1.14>
+<T1.15>in august 2012 breivik, who boasted of being an ultranationalist who killed his victims to fight multiculturalism in norway, was judged to be sane at the time of the attack.</T1.15>
+<T1.16>he was convicted of voluntary homicide and committing acts of terror and sentenced to 21 years in prison.</T1.16>
 </highlight>

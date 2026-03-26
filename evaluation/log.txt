@@ -1508,3 +1508,7 @@ seed = 1, model_type = gcn
 seed = 1, model_type = gcn
 seed = 1, model_type = gcn
 seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn
+seed = 1, model_type = gcn

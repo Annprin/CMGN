@@ -222,31 +222,41 @@ def process_wordPairs(data):
     return new_data
 
 def compare_method(pairs, pairs2):
+    if not pairs or not pairs2:
+        return 0.0
+
     sim = 0.0
+    used = set()
+    base_index = 1 if len(pairs) > 1 else 0
+    base_pair = pairs[base_index]
+
     for i in range(len(pairs2)):
-        # msp = ['', '']
-        # old code
-        msp = pairs[1]
         if i == 0:
             continue
-        found = False
-        for j in range(len(pairs)):
-            # modified
-            if j == 0:
-                continue
-            first = rouge_sim2(pairs2[i][0], msp[0]) + rouge_sim2(pairs2[i][1], msp[1])
-            second = rouge_sim2(pairs2[i][0], pairs[j][0]) + rouge_sim2(pairs2[i][1], pairs[j][1])
-            if first < second:
-                msp = pairs[j]
-                max_index = j
-                found = True
-        cur_sim = rouge_sim2(pairs2[i][0], msp[0])
-        cur_sim += rouge_sim2(pairs2[i][1], msp[1])
 
+        best_pair = base_pair
+        best_idx = base_index
+        best_score = (
+            rouge_sim2(pairs2[i][0], base_pair[0]) +
+            rouge_sim2(pairs2[i][1], base_pair[1])
+        )
+
+        for j in range(len(pairs)):
+            if j == 0 or j in used:
+                continue
+            candidate = pairs[j]
+            score = rouge_sim2(pairs2[i][0], candidate[0]) + rouge_sim2(pairs2[i][1], candidate[1])
+            if score > best_score:
+                best_score = score
+                best_pair = candidate
+                best_idx = j
+
+        cur_sim = rouge_sim2(pairs2[i][0], best_pair[0])
+        cur_sim += rouge_sim2(pairs2[i][1], best_pair[1])
         sim += cur_sim / 2
 
-        if found:
-            del pairs[max_index]
+        used.add(best_idx)
+
     return sim
 
 def main(
