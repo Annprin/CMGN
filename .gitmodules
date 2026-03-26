@@ -1,0 +1,3 @@
+[submodule "TTED/text-tree-distance"]
+	path = TTED/text-tree-distance
+	url = https://github.com/intsystems/text-tree-distance.git
