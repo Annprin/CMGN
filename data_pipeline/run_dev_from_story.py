@@ -45,7 +45,7 @@ def main():
     )
     parser.add_argument(
         "--label_mode",
-        choices=["distilbert", "zeros", "file", "gold"],
+        choices=["distilbert", "zeros", "file", "gold", "rst"],
         default="distilbert",
         help="How to build labels for dev",
     )
@@ -56,6 +56,11 @@ def main():
     )
     parser.add_argument("--device", default="cpu", help="cpu or cuda")
     parser.add_argument("--batch_size", type=int, default=32)
+    parser.add_argument(
+        "--rst_parser",
+        default="auto",
+        help="RST parser backend (auto|rstparser|rst_parser)",
+    )
     parser.add_argument(
         "--gold_dir",
         default=None,
@@ -164,6 +169,8 @@ def main():
             if not args.gold_dir:
                 raise SystemExit("--gold_dir is required when label_mode=gold")
             cmd += ["--gold_dir", args.gold_dir]
+        if args.label_mode == "rst":
+            cmd += ["--rst_parser", args.rst_parser]
         run(cmd)
 
     # Step 3: coreference maps

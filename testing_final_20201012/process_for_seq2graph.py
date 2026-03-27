@@ -24,6 +24,10 @@ try:
     from mind_map_generation import parse_docs
 except Exception:
     parse_docs = None
+try:
+    from data_pipeline.rst_labels import build_labels_with_rst
+except Exception:
+    build_labels_with_rst = None
 
 def get_label(id_, bert_labels):
     label = []
@@ -243,9 +247,14 @@ def main():
     )
     parser.add_argument(
         "--label_mode",
-        choices=["file", "distilbert", "zeros", "gold"],
+        choices=["file", "distilbert", "zeros", "gold", "rst"],
         default="file",
         help="How to obtain labels when --labels is missing",
+    )
+    parser.add_argument(
+        "--rst_parser",
+        default="auto",
+        help="RST parser backend (auto|rstparser|rst_parser)",
     )
     parser.add_argument(
         "--gold_dir",
@@ -276,6 +285,10 @@ def main():
             if not args.gold_dir:
                 raise FileNotFoundError("gold_dir is required when label_mode=gold")
             bert_labels = build_labels_from_gold(data, args.gold_dir)
+        elif args.label_mode == "rst":
+            if build_labels_with_rst is None:
+                raise RuntimeError("RST labels require data_pipeline/rst_labels.py and a supported parser")
+            bert_labels = build_labels_with_rst(data, parser_name=args.rst_parser)
         else:
             bert_labels = [[each[0], np.zeros((len(each[3]), len(each[3])), dtype=np.float32)] for each in data]
 
