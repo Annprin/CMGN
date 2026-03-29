@@ -1448,3 +1448,198 @@
 2026-03-27 10:54:31,941:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
 2026-03-27 10:54:31,946:INFO: Use pytorch device_name: mps
 2026-03-27 10:55:01,428:INFO: dev score: 0.2691983648474283, word score: 0.3341398197667334, tted score: 0.5820586905502038
+2026-03-27 15:30:24,412:INFO: Namespace(optimizer='adam', lr=0.0001, gcn_lr=0.0001, gcn_layer_num=2, batch_size=64, test_batch_size=64, nepochs=120, data_path='labeled_data/train_data_0_5000/', data_info='data_info_rst_only_NS.p', max_info='max_info.p', coref_train_maps='directed_maps/DGLgraph/train.p', coref_valid_maps='directed_maps/DGLgraph/valid.p', coref_dev_maps='directed_maps/DGLgraph/dev.p', dev_input='testing_final_20201012/processed_for_seq2graph_dev/dev_for_mymodel_info.p', dev_full='testing_final_20201012/processed/dev_full.p', dev_max_info='testing_final_20201012/processed_for_seq2graph_dev/max_info.p', start=0, end=5000, emb_path='labeled_data/embedding/', nepoch_no_imprv=3, device=0, model_type='gcn', model_name='rst_only_NS_train_full_model', initializer_range=0.02, dim_word=50, lstm_hidden=25, dir_output='results_1/', rl=1, rl_lambda=0.01, gcn=1, gcl=1, gcl_lambda=0.001, gcl_eta=0.3, remove_edges=0, remove_nodes=0, label_threshold=0.6, clamp_min=0.05, seed=1, register=True, max_sentence_length=50, max_content_length=50)
+2026-03-27 15:30:24,687:INFO: ---------Epoch 1 out of 120---------
+2026-03-27 15:31:57,368:INFO: loss: 16.49806
+2026-03-27 15:32:00,583:INFO: dev loss: 3.937870
+2026-03-27 15:32:00,932:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:32:00,934:DEBUG: Starting new HTTPS connection (1): huggingface.co:443
+2026-03-27 15:32:01,272:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:32:01,350:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:32:01,530:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:32:01,827:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:32:01,996:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:32:02,070:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:32:02,236:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:32:02,278:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:32:02,440:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:32:02,512:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:32:02,683:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:32:02,723:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:32:03,301:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:32:03,545:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:32:03,789:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:32:03,796:INFO: Use pytorch device_name: mps
+2026-03-27 15:32:24,991:INFO: dev score: 0.26555138383498395, word score: 0.33274443056151315, tted score: 0.5821439735443741
+2026-03-27 15:32:25,005:INFO: new best score!!The checkpoint file has been updated.
+2026-03-27 15:32:25,005:INFO: ---------Epoch 2 out of 120---------
+2026-03-27 15:34:01,160:INFO: loss: 15.89804
+2026-03-27 15:34:04,560:INFO: dev loss: 3.941082
+2026-03-27 15:34:04,668:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:34:04,845:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:34:04,885:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:34:05,073:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:34:05,113:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:34:05,282:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:34:05,326:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:34:05,493:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:34:05,543:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:34:05,768:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:34:05,810:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:34:05,976:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:34:06,019:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:34:06,522:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:34:06,577:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:34:06,866:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:34:06,874:INFO: Use pytorch device_name: mps
+2026-03-27 15:34:25,819:INFO: dev score: 0.3005289404254198, word score: 0.4054125681162625, tted score: 0.5496498928272692
+2026-03-27 15:34:25,833:INFO: new best score!!The checkpoint file has been updated.
+2026-03-27 15:34:25,834:INFO: ---------Epoch 3 out of 120---------
+2026-03-27 15:36:23,787:INFO: loss: 15.80410
+2026-03-27 15:36:28,089:INFO: dev loss: 3.923468
+2026-03-27 15:36:28,221:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:36:28,411:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:36:28,454:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:36:28,631:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:36:28,671:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:36:28,863:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:36:28,905:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:36:29,075:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:36:29,117:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:36:29,385:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:36:29,472:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:36:29,638:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:36:29,684:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:36:30,292:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:36:30,343:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:36:30,603:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:36:30,608:INFO: Use pytorch device_name: mps
+2026-03-27 15:36:49,286:INFO: dev score: 0.29868434042911657, word score: 0.3914449347871201, tted score: 0.5536301362939717
+2026-03-27 15:36:49,287:INFO: ---------Epoch 4 out of 120---------
+2026-03-27 15:38:50,941:INFO: loss: 14.62772
+2026-03-27 15:38:54,751:INFO: dev loss: 3.170857
+2026-03-27 15:38:54,877:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:38:55,054:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:38:55,090:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:38:55,271:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:38:55,322:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:38:55,485:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:38:55,526:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:38:55,690:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:38:55,742:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:38:55,905:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:38:55,962:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:38:56,131:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:38:56,176:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:38:56,709:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:38:56,834:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:38:57,091:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:38:57,096:INFO: Use pytorch device_name: mps
+2026-03-27 15:39:22,702:INFO: dev score: 0.3113510188893809, word score: 0.39024242699024736, tted score: 0.5896124441231066
+2026-03-27 15:39:22,717:INFO: new best score!!The checkpoint file has been updated.
+2026-03-27 15:39:22,717:INFO: ---------Epoch 5 out of 120---------
+2026-03-27 15:41:29,881:INFO: loss: 12.56702
+2026-03-27 15:41:33,972:INFO: dev loss: 2.912966
+2026-03-27 15:41:34,114:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:41:34,280:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:41:34,321:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:41:34,487:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:41:34,532:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:41:34,701:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:41:34,746:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:41:34,911:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:41:34,951:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:41:35,122:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:41:35,177:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:41:35,354:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:41:35,435:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:41:35,955:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:41:35,995:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:41:36,245:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:41:36,252:INFO: Use pytorch device_name: mps
+2026-03-27 15:41:58,716:INFO: dev score: 0.3080810377129292, word score: 0.38596845304306376, tted score: 0.5466401466707079
+2026-03-27 15:41:58,717:INFO: ---------Epoch 6 out of 120---------
+2026-03-27 15:44:11,297:INFO: loss: 11.62164
+2026-03-27 15:44:15,425:INFO: dev loss: 2.614254
+2026-03-27 15:44:15,557:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:44:15,739:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:44:15,781:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:44:15,956:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:44:16,026:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:44:16,211:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:44:16,250:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:44:16,422:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:44:16,460:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:44:16,635:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:44:16,694:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:44:16,868:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:44:16,915:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:44:17,404:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:44:17,475:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:44:17,714:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:44:17,719:INFO: Use pytorch device_name: mps
+2026-03-27 15:44:41,145:INFO: dev score: 0.31745044539055906, word score: 0.38966704583553935, tted score: 0.5577243271651261
+2026-03-27 15:44:41,169:INFO: new best score!!The checkpoint file has been updated.
+2026-03-27 15:44:41,170:INFO: ---------Epoch 7 out of 120---------
+2026-03-27 15:46:52,452:INFO: loss: 10.73801
+2026-03-27 15:46:56,514:INFO: dev loss: 2.470772
+2026-03-27 15:46:56,645:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:46:56,813:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:46:56,852:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:46:57,024:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:46:57,084:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:46:57,253:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:46:57,294:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:46:57,459:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:46:57,506:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:46:57,672:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:46:57,732:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:46:57,911:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:46:57,954:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:46:58,440:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:46:58,486:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:46:58,726:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:46:58,732:INFO: Use pytorch device_name: mps
+2026-03-27 15:47:20,026:INFO: dev score: 0.29560050823428824, word score: 0.3667237143874331, tted score: 0.5820693977345716
+2026-03-27 15:47:20,028:INFO: ---------Epoch 8 out of 120---------
+2026-03-27 15:49:29,169:INFO: loss: 10.29541
+2026-03-27 15:49:33,362:INFO: dev loss: 2.392407
+2026-03-27 15:49:33,490:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:49:33,674:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:49:33,721:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:49:33,897:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:49:33,967:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:49:34,169:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:49:34,212:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:49:34,391:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:49:34,432:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:49:34,656:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:49:34,698:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:49:34,869:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:49:34,911:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:49:35,459:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:49:35,503:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:49:35,747:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:49:35,755:INFO: Use pytorch device_name: mps
+2026-03-27 15:49:56,801:INFO: dev score: 0.2970853450193607, word score: 0.3643361329015113, tted score: 0.5637125670480716
+2026-03-27 15:49:56,803:INFO: ---------Epoch 9 out of 120---------
+2026-03-27 15:52:02,960:INFO: loss: 10.04031
+2026-03-27 15:52:07,133:INFO: dev loss: 2.351249
+2026-03-27 15:52:07,279:INFO: Load pretrained SentenceTransformer: sentence-transformers/paraphrase-distilroberta-base-v2
+2026-03-27 15:52:07,451:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:52:07,493:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:52:07,670:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+2026-03-27 15:52:07,712:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config_sentence_transformers.json HTTP/1.1" 200 0
+2026-03-27 15:52:07,914:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/README.md HTTP/1.1" 307 0
+2026-03-27 15:52:07,960:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/README.md HTTP/1.1" 200 0
+2026-03-27 15:52:08,133:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/modules.json HTTP/1.1" 307 0
+2026-03-27 15:52:08,176:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/modules.json HTTP/1.1" 200 0
+2026-03-27 15:52:08,348:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+2026-03-27 15:52:08,396:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/sentence_bert_config.json HTTP/1.1" 200 0
+2026-03-27 15:52:08,570:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/config.json HTTP/1.1" 307 0
+2026-03-27 15:52:08,612:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/config.json HTTP/1.1" 200 0
+2026-03-27 15:52:09,131:DEBUG: https://huggingface.co:443 "HEAD /sentence-transformers/paraphrase-distilroberta-base-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+2026-03-27 15:52:09,183:DEBUG: https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/paraphrase-distilroberta-base-v2/1972a507973d92e15f4f7cd9457d9fcf43ea117f/tokenizer_config.json HTTP/1.1" 200 0
+2026-03-27 15:52:09,415:DEBUG: https://huggingface.co:443 "GET /api/models/sentence-transformers/paraphrase-distilroberta-base-v2/revision/main HTTP/1.1" 200 None
+2026-03-27 15:52:09,420:INFO: Use pytorch device_name: mps
+2026-03-27 15:52:29,978:INFO: dev score: 0.30186480587995773, word score: 0.36385132693408073, tted score: 0.5615612670319238

@@ -96,18 +96,17 @@ def _extract_edus_and_links(result):
             nuclearity = _get_attr(node, "nuclearity")
             if nuclearity == "NS":
                 nucleus, satellite = left_idxs, right_idxs
+                for p in nucleus:
+                    for c in satellite:
+                        links.add((p, c))
             elif nuclearity == "SN":
                 nucleus, satellite = right_idxs, left_idxs
-            else:
-                nucleus, satellite = left_idxs, right_idxs
-
-            for p in nucleus:
-                for c in satellite:
-                    links.add((p, c))
-            if nuclearity == "NN":
-                for p in satellite:
-                    for c in nucleus:
+                for p in nucleus:
+                    for c in satellite:
                         links.add((p, c))
+            else:
+                # NN or unknown: treat as equal (no governing edge)
+                pass
 
             return left_idxs + right_idxs
 
