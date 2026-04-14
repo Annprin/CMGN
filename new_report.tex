@@ -1,9 +1,17 @@
-% Compile with XeLaTeX or LuaLaTeX.
+% Compile with XeLaTeX
 \documentclass[12pt,a4paper]{article}
 
 \usepackage[a4paper,margin=2.5cm]{geometry}
+
 \usepackage{fontspec}
-\usepackage{polyglossia}
+\usepackage[main=russian,english]{babel}
+
+\defaultfontfeatures{Ligatures=TeX}
+
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
 \usepackage{setspace}
 \usepackage{longtable}
 \usepackage{array}
@@ -13,17 +21,10 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{caption}
-\usepackage{xurl}
 \usepackage{hyperref}
 
-\setmainlanguage{russian}
-\setotherlanguage{english}
-
-\setmainfont{Times New Roman}
-\setsansfont{Arial}
-\setmonofont{Courier New}
-
 \onehalfspacing
+
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
@@ -38,7 +39,6 @@
 \setlist[enumerate]{leftmargin=1.8em}
 
 \begin{document}
-
 \begin{titlepage}
     \centering
     \vspace*{-2.5cm}

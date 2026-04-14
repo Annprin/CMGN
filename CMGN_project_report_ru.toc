@@ -21,30 +21,29 @@
 \contentsline {section}{\numberline {8}Пайплайн подготовки dev и test из сырых \texttt {.story}-документов}{13}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Сборка полного dev/test pickle}{13}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}Преобразование в seq2graph-вход}{13}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}Оркестрация полного контура}{13}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.3}Оркестрация полного контура}{14}{subsection.8.3}%
 \contentsline {subsection}{\numberline {8.4}Формальное описание преобразования документа в seq2graph-вход}{14}{subsection.8.4}%
 \contentsline {section}{\numberline {9}Поддержка пользовательских dev-наборов и управляемого инференса}{15}{section.9}%
-\contentsline {section}{\numberline {10}Модификация \texttt {train.py} для работы с альтернативными dev-данными}{15}{section.10}%
+\contentsline {section}{\numberline {10}Модификация \texttt {train.py} для работы с альтернативными dev-данными}{16}{section.10}%
 \contentsline {section}{\numberline {11}Система оценки качества и переработка метрик}{16}{section.11}%
 \contentsline {subsection}{\numberline {11.1}Sentence-level и keyword-level метрики}{16}{subsection.11.1}%
-\contentsline {subsection}{\numberline {11.2}Диагностика проблем оценки}{16}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.2}Диагностика проблем оценки}{17}{subsection.11.2}%
 \contentsline {section}{\numberline {12}Интеграция TTED в общий оценочный контур}{17}{section.12}%
 \contentsline {subsection}{\numberline {12.1}Содержательный смысл TTED}{17}{subsection.12.1}%
-\contentsline {subsection}{\numberline {12.2}Как TTED реализован в текущем проекте}{17}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.2}Как TTED реализован в текущем проекте}{18}{subsection.12.2}%
 \contentsline {subsection}{\numberline {12.3}Семантическая компонента TTED}{18}{subsection.12.3}%
 \contentsline {subsection}{\numberline {12.4}Формальное описание TTED в контексте проекта}{18}{subsection.12.4}%
 \contentsline {subsection}{\numberline {12.5}Что именно штрафует TTED}{19}{subsection.12.5}%
 \contentsline {subsection}{\numberline {12.6}Режим вычисления TTED}{20}{subsection.12.6}%
 \contentsline {subsection}{\numberline {12.7}Интерпретация результата}{20}{subsection.12.7}%
-\contentsline {subsection}{\numberline {12.8}Почему для некоторых документов TTED равен \texttt {None}}{20}{subsection.12.8}%
-\contentsline {subsection}{\numberline {12.9}Усредненный TTED по набору}{21}{subsection.12.9}%
+\contentsline {subsection}{\numberline {12.8}Усредненный TTED по набору}{21}{subsection.12.8}%
 \contentsline {section}{\numberline {13}Внедрение RST-разметки как альтернативы DistilBERT}{21}{section.13}%
 \contentsline {subsection}{\numberline {13.1}Выбор парсера}{21}{subsection.13.1}%
-\contentsline {subsection}{\numberline {13.2}Реализация базового модуля RST-labels}{22}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.2}Реализация базового модуля RST-labels}{21}{subsection.13.2}%
 \contentsline {subsection}{\numberline {13.3}Логика directed-связей}{22}{subsection.13.3}%
 \contentsline {subsection}{\numberline {13.4}Формальное описание RST-labels на уровне предложений}{22}{subsection.13.4}%
 \contentsline {section}{\numberline {14}Принципы агрегации EDU-структуры на уровень предложений}{23}{section.14}%
-\contentsline {subsection}{\numberline {14.1}Формальная схема отображения EDU в предложения}{24}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.1}Формальная схема отображения EDU в предложения}{23}{subsection.14.1}%
 \contentsline {section}{\numberline {15}Анализ проблем, выявленных в ходе работы, и способы их устранения}{24}{section.15}%
 \contentsline {subsection}{\numberline {15.1}Проблемы зависимостей}{24}{subsection.15.1}%
 \contentsline {subsection}{\numberline {15.2}Проблемы данных}{24}{subsection.15.2}%
@@ -52,17 +51,16 @@
 \contentsline {section}{\numberline {16}Результаты проделанной работы}{25}{section.16}%
 \contentsline {subsection}{\numberline {16.1}Инженерные результаты}{25}{subsection.16.1}%
 \contentsline {subsection}{\numberline {16.2}Исследовательские результаты}{25}{subsection.16.2}%
-\contentsline {subsection}{\numberline {16.3}Экспериментальные измерения}{26}{subsection.16.3}%
-\contentsline {subsubsection}{\numberline {16.3.1}Метрики по коду: основная абляция}{26}{subsubsection.16.3.1}%
-\contentsline {subsubsection}{\numberline {16.3.2}Метрики по статье}{27}{subsubsection.16.3.2}%
-\contentsline {subsubsection}{\numberline {16.3.3}Замеры на разных вариантах dev-текстов}{27}{subsubsection.16.3.3}%
-\contentsline {subsubsection}{\numberline {16.3.4}Собственные карты кореферентности}{28}{subsubsection.16.3.4}%
-\contentsline {subsubsection}{\numberline {16.3.5}Собственный кодировщик для labels на обучении}{28}{subsubsection.16.3.5}%
-\contentsline {subsubsection}{\numberline {16.3.6}Метрики по коду на test-наборе}{29}{subsubsection.16.3.6}%
-\contentsline {subsubsection}{\numberline {16.3.7}Метрики по коду на dev-наборе}{29}{subsubsection.16.3.7}%
-\contentsline {subsubsection}{\numberline {16.3.8}Пилотный эксперимент с eye maps}{30}{subsubsection.16.3.8}%
-\contentsline {subsubsection}{\numberline {16.3.9}Сводная интерпретация замеров}{30}{subsubsection.16.3.9}%
-\contentsline {subsection}{\numberline {16.4}Практическая значимость}{31}{subsection.16.4}%
-\contentsline {section}{\numberline {17}Список ключевых модифицированных компонентов проекта}{31}{section.17}%
-\contentsline {section}{\numberline {18}Ограничения текущей реализации и направления дальнейшего развития}{32}{section.18}%
-\contentsline {section}{\numberline {19}Заключение}{33}{section.19}%
+\contentsline {subsection}{\numberline {16.3}Экспериментальные измерения}{25}{subsection.16.3}%
+\contentsline {subsubsection}{\numberline {16.3.1}Метрики по статье}{26}{subsubsection.16.3.1}%
+\contentsline {subsubsection}{\numberline {16.3.2}Метрики по коду на test-наборе}{26}{subsubsection.16.3.2}%
+\contentsline {subsubsection}{\numberline {16.3.3}Метрики по коду на dev-наборе}{27}{subsubsection.16.3.3}%
+\contentsline {subsubsection}{\numberline {16.3.4}Замеры на разных вариантах dev-текстов}{27}{subsubsection.16.3.4}%
+\contentsline {subsubsection}{\numberline {16.3.5}Собственные карты кореферентности}{28}{subsubsection.16.3.5}%
+\contentsline {subsubsection}{\numberline {16.3.6}Собственный кодировщик для labels на обучении}{28}{subsubsection.16.3.6}%
+\contentsline {subsubsection}{\numberline {16.3.7}Сводная интерпретация замеров}{29}{subsubsection.16.3.7}%
+\contentsline {subsection}{\numberline {16.4}Практическая значимость}{30}{subsection.16.4}%
+\contentsline {section}{\numberline {17}Список ключевых модифицированных компонентов проекта}{30}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Directional Discourse Supervision for Knowledge-Map Generation}{31}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}TTED-Aware Training for Hierarchical Knowledge Maps}{33}{subsection.17.2}%
+\contentsline {section}{\numberline {18}Заключение}{36}{section.18}%
